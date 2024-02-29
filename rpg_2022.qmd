@@ -1,0 +1,680 @@
+---
+title: "RPG_2022"
+format: 
+  html:
+    code-link: true
+editor: source
+editor_options: 
+  chunk_output_type: console
+---
+
+## RPG
+
+```{r}
+library(sf)
+library(tidyverse)
+library(data.table)
+library(tictoc)
+library(formattable)
+library(glue)
+```
+
+## Données Nationales
+
+```{r}
+#| label: metadata_gpkg
+#| echo: false
+
+gpkg_file <- "DATA/RPG/RPG_2-0__GPKG_LAMB93_FXX_2022-01-01/PARCELLES_GRAPHIQUES.gpkg"
+
+layers <- st_layers(gpkg_file)
+
+df <- data.frame(
+  name = layers$name,
+  geomtype = layers$geomtype[[1]],
+  features = layers$features,
+  fields = layers$fields,
+  crs = layers$crs[[1]][[1]]
+) 
+
+df  |> formattable(align = c("l", "l", "r", "r", "l"))
+
+```
+
+## Test de chargement partiel
+
+```{r}
+#| label: request_gpkg
+#| echo: false
+
+tic(msg = "recherche des cultures de pasteques")
+PAS_data <- st_read(
+  gpkg_file, 
+  query = "select * from parcelles_graphiques where code_cultu = 'PAS';",
+  as_tibble = TRUE
+)
+toc()
+
+# recherche des cultures de pasteques: 17.66 sec elapsed
+
+tic(msg = "recherche des cultures de tournesols")
+TRN_data <- st_read(
+  gpkg_file, 
+  query = "select * from parcelles_graphiques where code_cultu = 'TRN';",
+  as_tibble = TRUE
+  )
+toc()
+
+# recherche des cultures de tournesols: 16.93 sec elapsed
+ 
+```
+
+
+```{r}
+#| label: test_plot
+#| echo: false
+
+tic(msg = "affichage des cultures de tournesol en métropole")
+st_geometry(TRN_data) |> 
+  ggplot() +
+  geom_sf(colour = "salmon")
+toc()
+
+# affichage des cultures de tournesol en métropole: 41.08 sec elapsed
+
+```
+
+
+```{r}
+#| label: comptage_codes_culture
+#| echo: false
+
+tic(msg = "comptage codes cultures")
+code_cultu_gpkg <- st_read(
+  gpkg_file, 
+  query = "select distinct code_cultu from parcelles_graphiques order by code_cultu;",
+  as_tibble = TRUE
+  ) |> 
+  pull()
+toc()
+
+# comptage codes cultures: 28.56 sec elapsed
+
+```
+
+```{r}
+#| label: cultures_dans_gpkg
+#| echo: false
+
+file_ref <- "DATA/RPG/REFERENCES/REF_CULTURES_GROUPES_CULTURES_2021.csv"
+data_ref = fread(file_ref)
+
+current_data <- data_ref |> filter(CODE_CULTURE %in% code_cultu_gpkg)
+
+code_cultu_missing <- data_ref |> 
+  filter(!(CODE_CULTURE %in% code_cultu_gpkg))
+
+```
+
+
+```{r}
+#| label: create_RDS_culture
+#| echo: false
+
+get_culture <- function(code_cultu) {
+
+  rds_file <- paste(
+    "DATA", "RPG", "RDS", paste0("rpg_",code_cultu,".RDS"), sep = "/"
+  )
+  if (!(file.exists(rds_file))) {
+    tic(msg = glue("création RDS pour le code culture : {code_cultu}"))
+    df <- st_read(
+      gpkg_file,
+      query = glue(
+        "select * from parcelles_graphiques where code_cultu = '{code_cultu}';"
+      ),
+      as_tibble = TRUE
+    )
+    saveRDS(df, rds_file)
+    toc()
+  } 
+}
+ 
+code_cultu_gpkg |> 
+  walk(get_culture)  
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r}
+#| label: chargement_data_metropole
+#| echo: false
+
+tic("chargement geopackage")
+data_rpg_geo <- st_read("DATA/RPG/RPG_2-0__GPKG_LAMB93_FXX_2022-01-01/PARCELLES_GRAPHIQUES.gpkg")
+toc()
+
+# chargement geopackage: 179.98 sec elapsed (~3 minutes)
+
+```
+
+```{r}
+ 
+tic("création d'un tibble sans la géométrie")
+
+data_rpg <- data_rpg_geo |> 
+  st_drop_geometry() |>
+
+toc()
+
+tic("t")
+  mutate(code_group = as.integer(code_group))
+toc()
+
+
+```
+
+### Test de rapidité
+
+```{r}
+#| label: calcul_avec_geometry
+
+tic(msg = "calcul surface parcelle totale par culture")
+data_rpg_geo |> 
+  group_by(code_cultu) |> 
+  summarize(surf_totale = sum(surf_parc)) -> tb_surf_culture
+toc()
+
+# 
+```
+
+```{r}
+#| label: calcul_sans_geometry
+
+tic(msg = "calcul surface parcelle totale par culture")
+data_rpg |> 
+  group_by(code_cultu) |> 
+  summarize(surf_totale = sum(surf_parc)) -> tb_surf_code_culture
+toc()
+
+
+```
+
+```{r}
+#| label: calcul_par_groupe_de_culture
+
+tic(msg = "calcul surface parcelle totale par culture")
+data_rpg |> 
+  group_by(code_group) |> 
+  summarize(surf_totale = sum(surf_parc)) -> tb_surf_code_group
+toc()
+
+
+```
+
+### Culture du maïs
+
+```{r}
+data_rpg_geo |> 
+  filter(code_group == 2) |>
+  ggplot() + 
+  geom_sf(aes(color = code_cultu, fill = code_cultu)) +
+  labs(
+    fill = "Code culture",
+    color = "Code culture"
+  )
+  
+```
+
+```{r}
+ggsave(filename = "DATA/RPG/IMAGES/mais.png")
+```
+
+### Prairies permanentes
+
+```{r}
+data_rpg_geo |> 
+  filter(code_group == 18) |>
+  ggplot() + 
+  geom_sf(aes(color = code_cultu, fill = code_cultu)) +
+  labs(
+    fill = "Code culture",
+    color = "Code culture"
+  )
+```
+
+```{r}
+ggsave(filename = "DATA/RPG/IMAGES/prairies.png")
+```
+
+### Toutes cultures
+
+```{r}
+data_rpg_geo |> 
+  ggplot() + 
+  geom_sf(aes(color = code_cultu, fill = code_cultu)) +
+  labs(
+    fill = "Code culture",
+    color = "Code culture"
+  )
+```
+
+```{r}
+ggsave(filename = "DATA/RPG/IMAGES/toutes_cultures.png")
+```
+
+### Tous groupes cultures
+
+```{r}
+data_rpg_geo |> 
+  ggplot() + 
+  geom_sf(aes(color = code_group, fill = code_group)) +
+  labs(
+    fill = "Groupe culture",
+    color = "Groupe culture"
+  )
+```
+
+```{r}
+ggsave(filename = "DATA/RPG/IMAGES/tous_groupes_cultures.png")
+```
+
+### Calcul de surface des différentes cultures
+
+```{r}
+
+data_ref_culture <- fread("DATA/RPG/REFERENCES/REF_CULTURES_GROUPES_CULTURES_2021.csv")
+
+data_rpg |>
+  group_by(code_group, code_cultu) |> 
+  summarize(Surf_cultu = sum(surf_parc)) -> data_surf_cultu
+
+data_ref_culture |> left_join(data_surf_cultu,
+                         by = join_by(CODE_CULTURE == code_cultu,
+                                      CODE_GROUPE_CULTURE == code_group)
+) -> data_surface_culture
+```
+
+```{r}
+data_surface_culture |> 
+  drop_na() |>
+  group_by(LIBELLE_GROUPE_CULTURE) |> 
+  summarize(Total_surface = sum(Surf_cultu)/100) |> 
+  ggplot(aes(x = reorder(LIBELLE_GROUPE_CULTURE, Total_surface), y = Total_surface)) +
+  geom_bar(stat = "identity", aes(fill = LIBELLE_GROUPE_CULTURE)) +
+  scale_y_continuous(labels = scales::comma) +
+  coord_flip() +
+  guides(fill = FALSE) +
+  labs(x = "LIBELLE GROUPE CULTURE",
+       y = "Surface de culture (km 2)")
+```
+
+```{r}
+ggsave(filename = "DATA/RPG/IMAGES/cultures_METROPOLE.png")
+```
+
+### Restitution des cultures non inventoriées
+
+```{r}
+data_cultures_absentes <- data_surface_culture |> 
+  filter(is.na(Surf_cultu)) |> 
+  select(CODE_CULTURE, CODE_GROUPE_CULTURE, LIBELLE_CULTURE, LIBELLE_GROUPE_CULTURE)
+```
+
+## Données régionales
+
+```{r}
+data_rpg_geo_HDF <- st_read("DATA/RPG/RPG_2-0__SHP_LAMB93_R32_2022-01-01/PARCELLES_GRAPHIQUES.shp")
+
+```
+
+```{r}
+data_rpg_geo_HDF |> 
+  st_drop_geometry() |> 
+  mutate(CODE_GROUP = as.integer(CODE_GROUP)) -> data_rpg_HDF
+
+
+```
+
+```{r}
+data_ref_culture <- fread("DATA/RPG/REFERENCES/REF_CULTURES_GROUPES_CULTURES_2021.csv")
+
+data_rpg_HDF |>
+  group_by(CODE_GROUP, CODE_CULTU) |> 
+  summarize(Surf_cultu = sum(SURF_PARC)) -> data_surf_cultu
+
+data_ref_culture |> left_join(data_surf_cultu,
+                         by = join_by(CODE_CULTURE == CODE_CULTU,
+                                      CODE_GROUPE_CULTURE == CODE_GROUP)
+) -> data_surface_culture_HDF
+```
+
+```{r}
+data_surface_culture_HDF |> 
+  drop_na() |>
+  group_by(LIBELLE_GROUPE_CULTURE) |> 
+  summarize(Total_surface = sum(Surf_cultu)/100) |> 
+  ggplot(aes(x = reorder(LIBELLE_GROUPE_CULTURE, Total_surface), y = Total_surface)) +
+  geom_bar(stat = "identity", aes(fill = LIBELLE_GROUPE_CULTURE)) +
+  scale_y_continuous(labels = scales::comma) +
+  coord_flip() +
+  guides(fill = FALSE) +
+  labs(x = "LIBELLE GROUPE CULTURE",
+       y = "Surface de culture (km 2)")
+```
+
+```{r}
+ggsave(filename = "DATA/RPG/IMAGES/cultures_HDF.png")
+```
+
+### \*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+
+```{r}
+data_rpg_geo_HDF |> 
+  filter(CODE_GROUP == 1 | CODE_GROUP == 2) |>
+  ggplot() + 
+  geom_sf(aes(color = CODE_CULTU, fill = CODE_CULTU)) +
+  labs(
+    fill = "Code culture",
+    color = "Code culture"
+  )
+```
+
+```{r}
+data_rpg_geo_HDF |> 
+  filter(CODE_GROUP == 1) |>
+  ggplot() + 
+  geom_sf(aes(color = CODE_CULTU, fill = CODE_CULTU)) +
+  labs(
+    fill = "Code culture",
+    color = "Code culture"
+  )
+```
+
+#\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*\*
+
+la polyligne de Boeschepe est projetée suivant le CRS WGS 84 (EPSG 4326)
+
+Alors que le RPG utilise le CRS LAMBERT 93 (EPSG 8827)
+
+```{r}
+library(leaflet)
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(data.table)
+
+data_ref_culture <- fread("DATA/RPG/REFERENCES/REF_CULTURES_GROUPES_CULTURES_2021.csv") |> 
+  select(CODE_CULTURE, LIBELLE_CULTURE)
+
+data_rpg_geo_HDF <- st_read("DATA/RPG/RPG_2-0__SHP_LAMB93_R32_2022-01-01/PARCELLES_GRAPHIQUES.shp")
+data_rpg_geo_HDF_code_cultu <- data_rpg_geo_HDF |> 
+  select(CODE_CULTU) |> 
+  left_join(data_ref_culture,
+            by = join_by(CODE_CULTU == CODE_CULTURE)
+  )
+
+
+limites_communales <- readRDS("DATA/_RDS/sf_2022_limites_communes.RDS")
+boeschepe <- limites_communales |> dplyr::filter(insee == "59086")
+boeschepe_g <- st_geometry(boeschepe)
+zone_lambert <- st_transform(boeschepe_g, crs = "EPSG:2154")
+
+#---------
+# zone <- st_as_sfc(st_bbox(boeschepe_g))
+# zone_lambert <- st_transform(zone, crs = "EPSG:2154")
+#-----------
+
+inter <- st_intersection(data_rpg_geo_HDF_code_cultu, zone_lambert)
+
+inter_wgs84 <- st_transform(inter, crs = "EPSG:4326")
+
+# ggplot() + geom_sf(data = inter_wgs84, aes(fill = CODE_CULTU))
+
+pal <- colorFactor(palette = "YlOrRd", domain = inter_wgs84$CODE_CULTU)
+
+leaflet(inter_wgs84) |> 
+  addTiles() |> 
+  addPolygons(color = NA, 
+              fillColor = ~ pal(CODE_CULTU), 
+              fillOpacity = 0.5,
+              popup = ~LIBELLE_CULTURE) |> 
+  addLegend(pal = pal, values = ~ CODE_CULTU, opacity = 0.5)
+
+
+
+
+
+# les données rpg sont projetées selon la projection Lambert 93
+data_rpg_geo_HDF <- st_read("DATA/RPG/RPG_2-0__SHP_LAMB93_R32_2022-01-01/PARCELLES_GRAPHIQUES.shp")
+
+object.size(data_rpg_geo_HDF)
+# 644873560 bytes
+
+# On ne garde que les donnée CODE_CULTU 
+
+data_rpg_geo_HDF_code_cultu <- data_rpg_geo_HDF |> 
+  select(CODE_CULTU)
+
+object.size(data_rpg_geo_HDF_code_cultu)
+# 589939920 bytes
+nrow(data_rpg_geo_HDF_code_cultu)
+# [1] 572158
+
+sample_1000 <- sample_n(data_rpg_geo_HDF_code_cultu, 1000)
+sample_1000
+st_crs(sample_1000)
+
+ggplot(sample_1000) + geom_sf(aes(fill = CODE_CULTU))
+
+centre <- st_centroid(st_as_sfc(st_bbox(sample_1000)))
+zone <- st_buffer(centre, dist = 10000)
+
+ggplot() + geom_sf(data = sample_1000, aes(fill = CODE_CULTU)) + geom_sf(data = zone, col = "red")
+
+inter <- st_intersection(sample_1000, zone)
+
+inter_wgs84 <- st_transform(inter, crs = "EPSG:4326")
+
+ggplot() + geom_sf(data = inter_wgs84, aes(fill = CODE_CULTU))
+
+
+n_of_colors = length(unique(inter_wgs84))
+pal <- colorFactor(palette = "YlOrRd", domain = inter_wgs84$CODE_CULTU)
+
+leaflet(inter_wgs84) |> 
+  addTiles() |> 
+  addPolygons(color = NA, fillColor = ~ pal(CODE_CULTU), fillOpacity = 0.5) |> 
+  addLegend(pal = pal, values = ~ CODE_CULTU, opacity = 0.5)
+
+
+
+
+carre <- st_polygon(list(rbind(c(-3, 250), c(-3.1, 250), c(-3.1, 250.1) , c(-3, 250.1), c(-3, 250))))
+carre_sfc <- st_sfc(carre)
+
+carre_sfc_93 <- st_set_crs(carre_sfc, 2154)
+st_crs(carre_sfc_93)
+
+inter <- st_intersection(sample_1000, carre_sfc_93)
+
+
+
+
+# Transformation des données suivant la projection WGS 84
+data_rpg_geo_HDF_code_cultu_wgs84 <- st_transform(data_rpg_geo_HDF_code_cultu,
+                                       crs = "EPSG:4326")
+
+limites_communales <- readRDS("DATA/_RDS/sf_2022_limites_communes.RDS")
+
+boeschepe <- limites_communales |> dplyr::filter(insee == "59086")
+boeschepe_g <- st_geometry(boeschepe)
+
+rpg_boeschepe <- data_rpg_geo_HDF_code_cultu_wgs84[boeschepe_g,]
+
+
+inter <- st_intersects(data_rpg_geo_HDF_code_cultu_wgs84, boeschepe_g)
+
+
+
+boeschepe_lambert <- st_transform(boeschepe, crs = "EPSG:2154")
+crop_factor <- st_bbox(boeschepe_lambert)
+rpg_cropped <- st_crop(data_rpg_geo_HDF_code_cultu, crop_factor)
+
+# Intersections polygones RPG et boeschepe 
+
+inter <- st_intersects(boeschepe_lambert, data_rpg_geo_HDF_code_cultu)
+
+ggplot() + geom_sf(data = inter)
+
+l <- leaflet(data_rpg_geo_HDF_wgs84) |> 
+  addTiles() |> 
+  addPolygons(color = "black",
+              fillColor = ~CODE_CULTU,
+              fillOpacity = 0.8)
+l
+
+
+
+
+
+
+
+limites_communales <- readRDS("DATA/_RDS/sf_2022_limites_communes.RDS")
+boeschepe <- limites_communales |> dplyr::filter(insee == "59086")
+
+
+
+
+
+```
+
+```{r}
+boeschepe
+st_crs(boeschepe)
+boeschepe_lambert <- st_transform(boeschepe, crs = "EPSG:2154")
+st_crs(boeschepe_lambert)
+boeschepe_lambert
+```
+
+```{r}
+
+crop_factor <- st_bbox(boeschepe_lambert)
+rpg_cropped <- st_crop(data_rpg_geo_HDF, crop_factor)
+
+```
+
+```{r}
+ggplot() + 
+  geom_sf(data = rpg_cropped, aes(color = CODE_CULTU, fill = CODE_CULTU)) +
+    geom_sf(data = boeschepe$geometry, alpha = 0.1, color = "red", linewidth = 2)
+```
+
+```{r}
+data_ref_culture <- fread("DATA/RPG/REFERENCES/REF_CULTURES_GROUPES_CULTURES_2021.csv")
+
+rpg_boeschepe <- rpg_cropped |> mutate(CODE_GROUP = as.integer(CODE_GROUP))
+
+rpg_boeschepe |>
+  group_by(CODE_GROUP, CODE_CULTU) |> 
+  summarize(Surf_cultu = sum(SURF_PARC)) -> data_surf_cultu
+
+data_ref_culture |> left_join(data_surf_cultu,
+                              by = join_by(CODE_CULTURE == CODE_CULTU,
+                                           CODE_GROUPE_CULTURE == CODE_GROUP)) |>
+  select(CODE_CULTURE, LIBELLE_CULTURE, Surf_cultu) |> 
+  arrange(CODE_CULTURE) |> 
+  drop_na(Surf_cultu) -> data_surface_culture_boeschepe
+```
+
+```{r}
+
+
+
+
+```
+
+```{r}
+
+library(sf)
+line_sfc = st_sfc(st_linestring)
+
+
+
+
+
+```
+
+```{r}
+library(leaflet)
+library(sf)
+library(dplyr)
+library(ggplot2)
+library(data.table)
+# library(oceanis)
+
+# https://geoservices.ign.fr/documentation/donnees/vecteur/rpg
+
+data_ref_culture <- fread("DATA/RPG/REFERENCES/REF_CULTURES_GROUPES_CULTURES_2021.csv") |> 
+  select(CODE_CULTURE, LIBELLE_CULTURE)
+
+data_rpg_geo_HDF <- st_read("DATA/RPG/RPG_2-0__SHP_LAMB93_R32_2022-01-01/PARCELLES_GRAPHIQUES.shp")
+data_rpg_geo_HDF_code_cultu <- data_rpg_geo_HDF |> 
+  select(CODE_CULTU) |> 
+  left_join(data_ref_culture,
+            by = join_by(CODE_CULTU == CODE_CULTURE)
+  )
+crs <- st_crs(data_rpg_geo_HDF_code_cultu)
+
+limites_communales <- readRDS("DATA/_RDS/sf_2022_limites_communes.RDS")
+limites_communales_HDF <- limites_communales |> 
+  filter(substr(insee, 1, 2) %in% c("02", "59", "60", "62", "80"))
+
+codes_insee <- limites_communales_HDF$insee 
+
+
+```
+
+```{r}
+code_insee = sample(codes_insee, 1)
+str(code_insee)
+message(code_insee)
+commune <- limites_communales |> 
+  dplyr::filter(insee == code_insee)
+nom_commune <- commune$nom
+commune_g <- st_geometry(commune)
+plot(commune_g)
+zone_lambert <- st_transform(commune_g, crs = "EPSG:2154")
+inter <- st_intersection(data_rpg_geo_HDF_code_cultu, zone_lambert)
+plot(inter)
+inter_wgs84 <- st_transform(inter, crs = "EPSG:4326")
+
+ggplot() + geom_sf(data = inter_wgs84, aes(fill = CODE_CULTU))
+
+pal <- colorFactor(palette = "YlOrRd", domain = inter_wgs84$CODE_CULTU)
+
+leaflet(inter_wgs84) |> 
+  addTiles() |> 
+  addPolygons(color = NA, 
+              fillColor = ~ pal(CODE_CULTU), 
+              fillOpacity = 0.5,
+              popup = ~paste(LIBELLE_CULTURE, CODE_CULTU)) |> 
+  addLegend(pal = pal, values = ~ CODE_CULTU, opacity = 0.5)
+
+#map <- add_titre(map = map,
+#                 titre = paste0("parcelles cultivées sur la commune de ", nom_commune)
+#)
+
+#map
+```
