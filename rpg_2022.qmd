@@ -205,8 +205,8 @@ plot_culture <- function(code_cultu) {
     tic(msg = glue("lecture RDS et plot pour le code culture : {code_cultu}"))
     data <- readRDS(rds_file) 
     p <- ggplot() +
-      geom_sf(data = data, colour = NA, fill = "cyan") +
       geom_sf(data = contour_geo_2154, colour = "blue", linewidth = 0.1, fill = "transparent") +
+      geom_sf(data = data, colour = NA, fill = "yellow") +
       coord_sf(
         xlim = c(80000, 1242000),
         ylim = c(6051000, 7109000),
@@ -227,8 +227,8 @@ plot_culture <- function(code_cultu) {
                           filter(CODE_CULTURE == {{ code_cultu }}) |> 
                           pull(LIBELLE_CULTURE))
       )
-    ggsave(png_file, p, bg = 'transparent')
-    ggsave(svg_file, p, bg = 'black')
+    ggsave(png_file, p, bg = 'transparent', width = 20, height = 20, units = "cm", dpi = 320)
+    #ggsave(svg_file, p, bg = 'black')
     toc()
   } else {
     message(
@@ -237,10 +237,8 @@ plot_culture <- function(code_cultu) {
   }
 }
 
-# code_cultu_gpkg |> 
-  # walk(plot_culture)
-
-plot_culture(code_cultu = 'PPH')
+code_cultu_gpkg[181:181] |> 
+  walk(plot_culture)
 
 ```
 
