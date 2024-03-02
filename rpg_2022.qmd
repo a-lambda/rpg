@@ -1,11 +1,6 @@
 ---
-title: "RPG_2022"
-format: 
-  html:
-    code-link: true
-editor: source
-editor_options: 
-  chunk_output_type: console
+title: "Récupération des données RPG"
+format: html
 ---
 
 ```{r}
@@ -91,12 +86,11 @@ data_ref = fread(file_ref)
 
 ```
 
-
 ## Informations sur le Geopackage contenant les données métropolitaines
 
 ```{r}
 #| label: metadata_gpkg
-#| echo: false
+#| echo: true
 
 gpkg_file <- "DATA/RPG_2-0__GPKG_LAMB93_FXX_2022-01-01/PARCELLES_GRAPHIQUES.gpkg"
 
@@ -114,7 +108,33 @@ df  |> formattable(align = c("l", "l", "r", "r", "l"))
 
 ```
 
-## 1. Décompte des codes culture du Geopackage
+### Echantillon des données stockées dans le Geopackage
+
+```{r}
+#| label: header_features
+#| echo: true
+#| message: false
+#| output: false
+
+header_gpkg <- st_read(
+  gpkg_file, 
+  query = "select * from parcelles_graphiques limit 5;",
+  as_tibble = TRUE
+)
+
+```
+
+
+```{r}
+#| label: display_header_features
+#| echo: true
+#| message: false
+
+header_gpkg |>
+  formattable(align = c("r", "l", "r", "l", "l", "r", "l"))
+
+```
+
 
 ```{r}
 #| label: comptage_codes_culture
@@ -123,16 +143,12 @@ df  |> formattable(align = c("l", "l", "r", "r", "l"))
 #| warning: false
 #| output: false
 
-tic(msg = "comptage codes cultures")
 code_cultu_gpkg <- st_read(
   gpkg_file, 
   query = "select distinct code_cultu from parcelles_graphiques order by code_cultu;",
   as_tibble = TRUE
   ) |> 
   pull()
-toc()
-
-# comptage codes cultures: 28.56 sec elapsed
 
 ```
 
@@ -141,6 +157,7 @@ toc()
 #| label: display_codes_culture
 #| echo: false
 #| message: false
+#| include: false
 
 display_vecteur_table(code_cultu_gpkg, ncol = 15, byrow = TRUE)
 
@@ -157,7 +174,7 @@ display_vecteur_table(code_cultu_gpkg, ncol = 15, byrow = TRUE)
 tic(msg = "comptage codes cultures")
 surfaces_par_culture <- st_read(
   gpkg_file,
-  query = "SELECT code_cultu AS `CODE CULTURE`, ROUND(SUM(surf_parc),1) AS `TOTAL (ha)`, COUNT(code_cultu) AS N, ROUND(SUM(surf_parc)/COUNT(code_cultu), 1) AS `MOYENNE (ha)` FROM parcelles_graphiques GROUP BY code_cultu ORDER BY code_cultu;",
+  query = "SELECT code_cultu AS `CODE CULTURE`, ROUND(SUM(surf_parc),1) AS `TOTAL (ha)`, COUNT(code_cultu) AS N, ROUND(SUM(surf_parc)/COUNT(code_cultu), 1) AS `MOYENNE (ha)` FROM parcelles_graphiques GROUP BY code_cultu ORDER BY `TOTAL (ha)` DESC;",
   as_tibble = TRUE
 )
 toc()
@@ -169,6 +186,7 @@ data_surfaces <- inner_join(surfaces_par_culture, data_ref, join_by(`CODE CULTUR
 
 ```
 
+## Nombre, surface totale et surface moyenne des différents types de culture
 
 ```{r}
 #| label: display_surfaces_par_culture
@@ -196,19 +214,21 @@ data_surfaces |>
   formattable(
     align = c("l", "r", "r", "r"),
     list(
-      "TOTAL (ha)" = color_tile("transparent", "red"),
-      "N" = color_tile("transparent", "green"),
+      "TOTAL (ha)" = color_tile("transparent", "green"),
+      "N" = color_tile("transparent", "red"),
       "MOYENNE (ha)" = custom_format
     )
   )
 
 ```
 
-### 2. Tableau des des données (non géographiques) du Geopackage
 
 ```{r}
 #| label: cultures_in_gpkg
 #| echo: false
+#| message: false
+#| warning: false
+#| output: false
 
 gpkg_cultures <- data_ref |> 
   filter(CODE_CULTURE %in% code_cultu_gpkg) |> 
@@ -219,11 +239,13 @@ gpkg_cultures |>
 
 ```
 
-### 3. Tableau des données relatives aux cultures absentes du Geopackage
 
 ```{r}
 #| label: cultures_not_in_gpkg
 #| echo: false
+#| message: false
+#| warning: false
+#| output: false
 
 code_cultu_missing <- data_ref |> 
   filter(!(CODE_CULTURE %in% code_cultu_gpkg)) |> 
@@ -233,6 +255,7 @@ code_cultu_missing |>
   formattable(align = c("l", "l", "r", "l"))
 
 ```
+
 
 ```{r}
 #| label: save_data_to_RDS
@@ -267,6 +290,7 @@ code_cultu_gpkg |>
 #| label: recup_contours_departements_français
 #| echo: false
 #| message: false
+#| output: false
 
 contours_geo <- st_geometry(st_read("DATA/OSM/departements-20180101.shp"))
 contour_geo_2154 <- st_transform(contours_geo, crs = st_crs("EPSG:2154"))
@@ -328,9 +352,23 @@ plot_culture <- function(code_cultu) {
   }
 }
 
-#code_cultu_gpkg[181:181] |> 
- # walk(plot_culture)
+# code_cultu_gpkg |> 
+#    walk(plot_culture)
+# 
+# plot_culture('BTH')
+
 
 ```
+
+### Des exemples de répartition géographique
+
+::: {#fig-cultures layout-ncol=1}
+
+![Prairie permanente](images/rpg_PPH.png){#fig-surus}
+
+![Blé tendre d'hiver](images/rpg_BTH.png){#fig-hanno}
+
+Exemple de cultures
+:::
 
 

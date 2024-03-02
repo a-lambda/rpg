@@ -1,12 +1,7 @@
 ---
 title: "brouillon"
 format: html
-editor: visual
 ---
-
-
-
-
 
 
 

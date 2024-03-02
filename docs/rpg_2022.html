@@ -1,0 +1,4854 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Registre parcellaire graphique (RPG) - 1&nbsp; Récupération des données RPG</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./intro.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark.min.css" rel="prefetch" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark"><script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+</head>
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top"><nav class="quarto-secondary-nav"><div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./rpg_2022.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Données RPG 2022</span></a></li></ol></nav>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+      <button type="button" class="btn quarto-search-button" aria-label="" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav></header><!-- content --><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto"><div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Registre parcellaire graphique (RPG)</a> 
+        <div class="sidebar-tools-main tools-wide">
+    <a href="https://github.com/a-lambda/rpg" rel="" title="Source Code" class="quarto-navigation-tool px-1" aria-label="Source Code"><i class="bi bi-github"></i></a>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+<li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./intro.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Intro</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./rpg_2022.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Données RPG 2022</span></span></a>
+  </div>
+</li>
+    </ul>
+</div>
+</nav><div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active"><h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+<li><a href="#registre-parcellaire-graphique-rpg" id="toc-registre-parcellaire-graphique-rpg" class="nav-link active" data-scroll-target="#registre-parcellaire-graphique-rpg"><span class="header-section-number">1.1</span> Registre parcellaire graphique (RPG)</a></li>
+  <li>
+<a href="#informations-sur-le-geopackage-contenant-les-donn%C3%A9es-m%C3%A9tropolitaines" id="toc-informations-sur-le-geopackage-contenant-les-données-métropolitaines" class="nav-link" data-scroll-target="#informations-sur-le-geopackage-contenant-les-donn%C3%A9es-m%C3%A9tropolitaines"><span class="header-section-number">1.2</span> Informations sur le Geopackage contenant les données métropolitaines</a>
+  <ul class="collapse">
+<li><a href="#echantillon-des-donn%C3%A9es-stock%C3%A9es-dans-le-geopackage" id="toc-echantillon-des-données-stockées-dans-le-geopackage" class="nav-link" data-scroll-target="#echantillon-des-donn%C3%A9es-stock%C3%A9es-dans-le-geopackage"><span class="header-section-number">1.2.1</span> Echantillon des données stockées dans le Geopackage</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#nombre-surface-totale-et-surface-moyenne-des-diff%C3%A9rents-types-de-culture" id="toc-nombre-surface-totale-et-surface-moyenne-des-différents-types-de-culture" class="nav-link" data-scroll-target="#nombre-surface-totale-et-surface-moyenne-des-diff%C3%A9rents-types-de-culture"><span class="header-section-number">1.3</span> Nombre, surface totale et surface moyenne des différents types de culture</a>
+  <ul class="collapse">
+<li><a href="#des-exemples-de-r%C3%A9partition-g%C3%A9ographique" id="toc-des-exemples-de-répartition-géographique" class="nav-link" data-scroll-target="#des-exemples-de-r%C3%A9partition-g%C3%A9ographique"><span class="header-section-number">1.3.1</span> Des exemples de répartition géographique</a></li>
+  </ul>
+</li>
+  </ul><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/a-lambda/rpg/edit/main/rpg_2022.qmd" class="toc-action">Edit this page</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block default"><div class="quarto-title">
+<h1 class="title">
+<span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Récupération des données RPG</span>
+</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header><section id="registre-parcellaire-graphique-rpg" class="level2" data-number="1.1"><h2 data-number="1.1" class="anchored" data-anchor-id="registre-parcellaire-graphique-rpg">
+<span class="header-section-number">1.1</span> Registre parcellaire graphique (RPG)</h2>
+<p>Le fichier de données accessible <a href="https://www.data.gouv.fr/fr/datasets/registre-parcellaire-graphique-rpg-contours-des-parcelles-et-ilots-culturaux-et-leur-groupe-de-cultures-majoritaire/">ici</a> contient les contours des parcellaires et îlots culturaux et leur groupe de cultures majoritaires.</p>
+</section><section id="informations-sur-le-geopackage-contenant-les-données-métropolitaines" class="level2" data-number="1.2"><h2 data-number="1.2" class="anchored" data-anchor-id="informations-sur-le-geopackage-contenant-les-données-métropolitaines">
+<span class="header-section-number">1.2</span> Informations sur le Geopackage contenant les données métropolitaines</h2>
+<div class="cell">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">gpkg_file</span> <span class="op">&lt;-</span> <span class="st">"DATA/RPG_2-0__GPKG_LAMB93_FXX_2022-01-01/PARCELLES_GRAPHIQUES.gpkg"</span></span>
+<span></span>
+<span><span class="va">layers</span> <span class="op">&lt;-</span> <span class="fu">st_layers</span><span class="op">(</span><span class="va">gpkg_file</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="va">layers</span><span class="op">$</span><span class="va">name</span>,</span>
+<span>  geomtype <span class="op">=</span> <span class="va">layers</span><span class="op">$</span><span class="va">geomtype</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>,</span>
+<span>  features <span class="op">=</span> <span class="va">layers</span><span class="op">$</span><span class="va">features</span>,</span>
+<span>  fields <span class="op">=</span> <span class="va">layers</span><span class="op">$</span><span class="va">fields</span>,</span>
+<span>  crs <span class="op">=</span> <span class="va">layers</span><span class="op">$</span><span class="va">crs</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span></span>
+<span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">df</span>  <span class="op">|&gt;</span> <span class="fu">formattable</span><span class="op">(</span>align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"l"</span>, <span class="st">"l"</span>, <span class="st">"r"</span>, <span class="st">"r"</span>, <span class="st">"l"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead><tr>
+<th style="text-align:left;">
+name
+</th>
+<th style="text-align:left;">
+geomtype
+</th>
+<th style="text-align:right;">
+features
+</th>
+<th style="text-align:right;">
+fields
+</th>
+<th style="text-align:left;">
+crs
+</th>
+</tr></thead>
+<tbody><tr>
+<td style="text-align:left;">
+parcelles_graphiques
+</td>
+<td style="text-align:left;">
+Multi Polygon
+</td>
+<td style="text-align:right;">
+9896777
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:left;">
+RGF93 v1 / Lambert-93
+</td>
+</tr></tbody>
+</table>
+</div>
+</div>
+<section id="echantillon-des-données-stockées-dans-le-geopackage" class="level3" data-number="1.2.1"><h3 data-number="1.2.1" class="anchored" data-anchor-id="echantillon-des-données-stockées-dans-le-geopackage">
+<span class="header-section-number">1.2.1</span> Echantillon des données stockées dans le Geopackage</h3>
+<div class="cell">
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">header_gpkg</span> <span class="op">&lt;-</span> <span class="fu">st_read</span><span class="op">(</span></span>
+<span>  <span class="va">gpkg_file</span>, </span>
+<span>  query <span class="op">=</span> <span class="st">"select * from parcelles_graphiques limit 5;"</span>,</span>
+<span>  as_tibble <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">header_gpkg</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">formattable</span><span class="op">(</span>align <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"r"</span>, <span class="st">"l"</span>, <span class="st">"r"</span>, <span class="st">"l"</span>, <span class="st">"l"</span>, <span class="st">"r"</span>, <span class="st">"l"</span><span class="op">)</span><span class="op">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead><tr>
+<th style="text-align:right;">
+id_parcel
+</th>
+<th style="text-align:left;">
+code_cultu
+</th>
+<th style="text-align:right;">
+code_group
+</th>
+<th style="text-align:left;">
+culture_d1
+</th>
+<th style="text-align:left;">
+culture_d2
+</th>
+<th style="text-align:right;">
+surf_parc
+</th>
+<th style="text-align:left;">
+the_geom
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+19
+</td>
+<td style="text-align:left;">
+VRC
+</td>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((375932.4 66…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+20
+</td>
+<td style="text-align:left;">
+PPH
+</td>
+<td style="text-align:right;">
+18
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+0.37
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((875283.8 69…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+21
+</td>
+<td style="text-align:left;">
+MIS
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+2.48
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((877307 6575…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+22
+</td>
+<td style="text-align:left;">
+J6P
+</td>
+<td style="text-align:right;">
+11
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+0.69
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((430725.6 63…
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+47
+</td>
+<td style="text-align:left;">
+BTH
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:right;">
+0.97
+</td>
+<td style="text-align:left;">
+MULTIPOLYGON (((931800.1 69…
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section></section><section id="nombre-surface-totale-et-surface-moyenne-des-différents-types-de-culture" class="level2" data-number="1.3"><h2 data-number="1.3" class="anchored" data-anchor-id="nombre-surface-totale-et-surface-moyenne-des-différents-types-de-culture">
+<span class="header-section-number">1.3</span> Nombre, surface totale et surface moyenne des différents types de culture</h2>
+<div class="cell">
+<div class="cell-output-display">
+
+<table class="table table-condensed">
+<thead><tr>
+<th style="text-align:left;">
+CODE CULTURE
+</th>
+<th style="text-align:right;">
+TOTAL (ha)
+</th>
+<th style="text-align:right;">
+N
+</th>
+<th style="text-align:right;">
+MOYENNE (ha)
+</th>
+<th style="text-align:left;">
+LIBELLE CULTURE
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+PPH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #00ff00">6412794.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ff0000">2422175</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(171, 189, 232, 0.24); color: black">2.6</span>
+</td>
+<td style="text-align:left;">
+Prairie permanente - herbe prédominante (ressources fourragères ligneuses absentes ou peu présentes)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BTH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #46ff46">4628841.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffa1a1">890078</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(118, 144, 218, 0.49); color: black">5.2</span>
+</td>
+<td style="text-align:left;">
+Blé tendre d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MIS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #c3ffc3">1498988.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffd4d4">406229</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(148, 170, 226, 0.35); color: black">3.7</span>
+</td>
+<td style="text-align:left;">
+Maïs
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #c6ffc6">1429821.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffecec">177355</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(59, 93, 201, 0.78); color: red">8.1</span>
+</td>
+<td style="text-align:left;">
+Surface pastorale - herbe prédominante et ressources fourragères ligneuses présentes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #cbffcb">1297349.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffbaba">646555</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(183, 199, 236, 0.18); color: black">2.0</span>
+</td>
+<td style="text-align:left;">
+Prairie en rotation longue (6 ans ou plus)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ORH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #cbffcb">1288975.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffe1e1">277909</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(130, 154, 221, 0.44); color: black">4.6</span>
+</td>
+<td style="text-align:left;">
+Orge d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CZH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ceffce">1225185.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffe9e9">200474</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(100, 128, 213, 0.58); color: black">6.1</span>
+</td>
+<td style="text-align:left;">
+Colza d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PTR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ceffce">1219499.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffbdbd">622953</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(183, 199, 236, 0.18); color: black">2.0</span>
+</td>
+<td style="text-align:left;">
+Autre prairie temporaire de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MIE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ceffce">1209669.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffd9d9">357060</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(155, 175, 228, 0.32); color: black">3.4</span>
+</td>
+<td style="text-align:left;">
+Maïs ensilage
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TRN
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #dcffdc">857710.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffebeb">182230</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(128, 153, 221, 0.44); color: black">4.7</span>
+</td>
+<td style="text-align:left;">
+Tournesol
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VRC
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e7ffe7">578754.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffcbcb">485773</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(199, 213, 240, 0.11); color: black">1.2</span>
+</td>
+<td style="text-align:left;">
+Vigne : raisins de cuve
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ORP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e8ffe8">567983.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff3f3">109954</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(118, 144, 218, 0.49); color: black">5.2</span>
+</td>
+<td style="text-align:left;">
+Orge de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SPL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #e8ffe8">565777.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff7f7">69665</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(59, 93, 201, 0.78); color: red">8.1</span>
+</td>
+<td style="text-align:left;">
+Surface pastorale - ressources fourragères ligneuses prédominantes
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BTN
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #eeffee">409303.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff9f9">54279</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(71, 104, 205, 0.72); color: red">7.5</span>
+</td>
+<td style="text-align:left;">
+Betterave non fourragère / Bette
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LUZ
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #efffef">381921.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffefef">147179</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(171, 189, 232, 0.24); color: black">2.6</span>
+</td>
+<td style="text-align:left;">
+Autre luzerne
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TTH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f1fff1">335413.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff2f2">116909</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(165, 184, 231, 0.27); color: black">2.9</span>
+</td>
+<td style="text-align:left;">
+Triticale d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BOP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f3fff3">292156.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff5f5">86586</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(155, 175, 228, 0.32); color: black">3.4</span>
+</td>
+<td style="text-align:left;">
+Bois pâturé
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MLG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f5fff5">249912.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff4f4">101009</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(173, 191, 233, 0.23); color: black">2.5</span>
+</td>
+<td style="text-align:left;">
+Mélange de légumineuses prépondérantes au semis et de graminées fourragères de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BDH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f5fff5">244951.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffafa">46770</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(118, 144, 218, 0.49); color: black">5.2</span>
+</td>
+<td style="text-align:left;">
+Blé dur d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J6S
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f6fff6">216014.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffe2e2">267195</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(207, 220, 243, 0.07); color: black">0.8</span>
+</td>
+<td style="text-align:left;">
+Jachère de 6 ans ou plus déclarée comme Surface d’intérêt écologique
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J5M
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f6fff6">213841.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffe6e6">236045</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(205, 219, 242, 0.07); color: black">0.9</span>
+</td>
+<td style="text-align:left;">
+Jachère de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RGA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f7fff7">197229.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff5f5">86326</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(177, 194, 234, 0.21); color: black">2.3</span>
+</td>
+<td style="text-align:left;">
+Ray-grass de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PTC
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f7fff7">183371.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffafa">45277</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(142, 165, 225, 0.38); color: black">4.0</span>
+</td>
+<td style="text-align:left;">
+Pomme de terre de consommation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOJ
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f7fff7">181603.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffafa">43694</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(138, 161, 223, 0.4); color: black">4.2</span>
+</td>
+<td style="text-align:left;">
+Soja
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SNE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f8fff8">175508.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffcece">456729</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(215, 227, 245, 0.03); color: black">0.4</span>
+</td>
+<td style="text-align:left;">
+Surface agricole temporairement non exploitée
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #f9fff9">127921.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">18935</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(86, 116, 209, 0.65); color: black">6.8</span>
+</td>
+<td style="text-align:left;">
+Lin fibres
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MCR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fafffa">119510.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffafa">43145</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Mélange de céréales
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TRE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fafffa">101680.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffbfb">36122</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Autre trèfle
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VRG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fbfffb">96423.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff7f7">74918</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(197, 212, 240, 0.11); color: black">1.3</span>
+</td>
+<td style="text-align:left;">
+Verger
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PPR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fbfffb">95221.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">16435</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(106, 133, 214, 0.55); color: black">5.8</span>
+</td>
+<td style="text-align:left;">
+Pois de printemps semé avant le 31/05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LUD
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfffc">74454.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">11305</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(90, 120, 210, 0.63); color: black">6.6</span>
+</td>
+<td style="text-align:left;">
+Luzerne déshydratée
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FVL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfffc">67557.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">18202</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(148, 170, 226, 0.35); color: black">3.7</span>
+</td>
+<td style="text-align:left;">
+Féverole semée avant le 31/05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SOG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfffc">62481.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffcfc">22365</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Sorgho
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BTA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfffc">59223.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffdbdb">337458</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(219, 231, 246, 0.01); color: black">0.2</span>
+</td>
+<td style="text-align:left;">
+Bande tampon
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MLF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfffc">56386.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">18947</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(163, 182, 230, 0.28); color: black">3.0</span>
+</td>
+<td style="text-align:left;">
+Mélange de légumineuses fourragères (entre elles)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AVH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfffc">54719.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">18237</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(163, 182, 230, 0.28); color: black">3.0</span>
+</td>
+<td style="text-align:left;">
+Avoine d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MLC
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfffc">53030.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">14033</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(146, 168, 226, 0.36); color: black">3.8</span>
+</td>
+<td style="text-align:left;">
+Mélange de légumineuses fourragères prépondérantes et de céréales et/ou d’oléagineux
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPC
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fcfffc">50760.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">12408</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(140, 163, 224, 0.39); color: black">4.1</span>
+</td>
+<td style="text-align:left;">
+Mélange de protéagineux (pois et/ou lupin et/ou féverole) prépondérants semés avant le 31/05 et de céréales
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CEE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">49267.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">4867</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(19, 59, 190, 0.97); color: red">10.1</span>
+</td>
+<td style="text-align:left;">
+Chênaie entretenue par des porcins ou des petits ruminants
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+J6P
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">47454.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff9f9">56879</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(207, 220, 243, 0.07); color: black">0.8</span>
+</td>
+<td style="text-align:left;">
+Jachère de 6 ans ou plus
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SRS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">44221.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">15087</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(165, 184, 231, 0.27); color: black">2.9</span>
+</td>
+<td style="text-align:left;">
+Sarrasin
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PPO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">42583.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">7281</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(106, 133, 214, 0.55); color: black">5.8</span>
+</td>
+<td style="text-align:left;">
+Petits pois
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AVP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">41748.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">17183</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(175, 193, 234, 0.22); color: black">2.4</span>
+</td>
+<td style="text-align:left;">
+Avoine de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SGH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">40497.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">16180</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(173, 191, 233, 0.23); color: black">2.5</span>
+</td>
+<td style="text-align:left;">
+Seigle d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PHI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">37695.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">6957</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(114, 140, 217, 0.51); color: black">5.4</span>
+</td>
+<td style="text-align:left;">
+Pois d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LAV
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">32782.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">18348</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(187, 203, 237, 0.16); color: black">1.8</span>
+</td>
+<td style="text-align:left;">
+Lavande / Lavandin
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HAR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">32317.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">6389</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(120, 146, 218, 0.48); color: black">5.1</span>
+</td>
+<td style="text-align:left;">
+Haricot / Flageolet
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VRN
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">31850.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffbfb">37026</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(205, 219, 242, 0.07); color: black">0.9</span>
+</td>
+<td style="text-align:left;">
+Vigne : raisins de cuve non en production
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NOX
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">29890.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffcfc">25421</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(199, 213, 240, 0.11); color: black">1.2</span>
+</td>
+<td style="text-align:left;">
+Noix
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LEC
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">29054.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">7484</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(144, 166, 225, 0.37); color: black">3.9</span>
+</td>
+<td style="text-align:left;">
+Lentille cultivée (non fourragère)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EPE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fdfffd">28814.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">8563</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(155, 175, 228, 0.32); color: black">3.4</span>
+</td>
+<td style="text-align:left;">
+Épeautre
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BTP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">25144.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">7258</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(153, 173, 227, 0.33); color: black">3.5</span>
+</td>
+<td style="text-align:left;">
+Blé tendre de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FLA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">23896.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffbfb">37192</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(211, 224, 244, 0.05); color: black">0.6</span>
+</td>
+<td style="text-align:left;">
+Autre légume ou fruit annuel
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MID
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">21848.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2123</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(15, 55, 189, 0.99); color: red">10.3</span>
+</td>
+<td style="text-align:left;">
+Maïs doux
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PTF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">20999.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3101</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(86, 116, 209, 0.65); color: black">6.8</span>
+</td>
+<td style="text-align:left;">
+Pomme de terre féculière
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SAI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">20139.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">12207</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(191, 206, 238, 0.15); color: black">1.6</span>
+</td>
+<td style="text-align:left;">
+Autre sainfoin
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OIG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">19376.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">5774</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(155, 175, 228, 0.32); color: black">3.4</span>
+</td>
+<td style="text-align:left;">
+Oignon / Échalote
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHV
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">19241.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3865</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(122, 147, 219, 0.47); color: black">5.0</span>
+</td>
+<td style="text-align:left;">
+Chanvre
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">17201.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3178</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(114, 140, 217, 0.51); color: black">5.4</span>
+</td>
+<td style="text-align:left;">
+Lin non textile d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BOR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">17152.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fff0f0">141175</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(222, 233, 247, 0); color: black">0.1</span>
+</td>
+<td style="text-align:left;">
+Bordure de champ
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CAE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">16980.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2788</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(100, 128, 213, 0.58); color: black">6.1</span>
+</td>
+<td style="text-align:left;">
+Châtaigneraie entretenue par des porcins ou des petits ruminants
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FET
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">16245.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">7374</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(179, 196, 235, 0.2); color: black">2.2</span>
+</td>
+<td style="text-align:left;">
+Fétuque de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PCH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">16056.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">4934</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(157, 177, 228, 0.31); color: black">3.3</span>
+</td>
+<td style="text-align:left;">
+Pois chiche
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BVF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">16030.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">8041</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(183, 199, 236, 0.18); color: black">2.0</span>
+</td>
+<td style="text-align:left;">
+Betterave fourragère
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHU
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">15793.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">11207</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(195, 210, 239, 0.13); color: black">1.4</span>
+</td>
+<td style="text-align:left;">
+Chou
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MLT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">14461.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3731</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(144, 166, 225, 0.37); color: black">3.9</span>
+</td>
+<td style="text-align:left;">
+Millet
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FAG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">13604.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">5968</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(177, 194, 234, 0.21); color: black">2.3</span>
+</td>
+<td style="text-align:left;">
+Autre fourrage annuel d’un autre genre
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OLI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">13586.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffcfc">19425</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(209, 222, 243, 0.05); color: black">0.7</span>
+</td>
+<td style="text-align:left;">
+Oliveraie
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CAR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">12599.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3437</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(148, 170, 226, 0.35); color: black">3.7</span>
+</td>
+<td style="text-align:left;">
+Carotte
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CES
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">11699.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2603</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(132, 156, 222, 0.42); color: black">4.5</span>
+</td>
+<td style="text-align:left;">
+Chicorée / Endive / Scarole
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RIZ
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">11545.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1501</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(67, 100, 204, 0.74); color: red">7.7</span>
+</td>
+<td style="text-align:left;">
+Riz
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SBO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">11508.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">11354</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(203, 217, 241, 0.09); color: black">1.0</span>
+</td>
+<td style="text-align:left;">
+Surface boisée sur une ancienne terre agricole
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PRU
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">11319.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">4750</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(175, 193, 234, 0.22); color: black">2.4</span>
+</td>
+<td style="text-align:left;">
+Prune d’Ente pour transformation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LIP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">11018.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2037</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(114, 140, 217, 0.51); color: black">5.4</span>
+</td>
+<td style="text-align:left;">
+Lin non textile de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NOS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">10803.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2606</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(140, 163, 224, 0.39); color: black">4.1</span>
+</td>
+<td style="text-align:left;">
+Noisette
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MLO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">10777.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3290</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(157, 177, 228, 0.31); color: black">3.3</span>
+</td>
+<td style="text-align:left;">
+Melon
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PEP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">9830.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">6720</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(193, 208, 239, 0.13); color: black">1.5</span>
+</td>
+<td style="text-align:left;">
+Pépinière
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MCT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">9647.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">6042</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(191, 206, 238, 0.15); color: black">1.6</span>
+</td>
+<td style="text-align:left;">
+Miscanthus
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PPA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">9440.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3334</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Autre plante à parfum, aromatique et médicinale annuelle
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CPL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">9163.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">4181</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(179, 196, 235, 0.2); color: black">2.2</span>
+</td>
+<td style="text-align:left;">
+Fourrage composé de céréales et/ou de protéagineux (en proportion &lt;&nbsp;50%) et/ou de légumineuses fourragères (en proportion &lt; 50%)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DTY
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">9041.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3877</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(177, 194, 234, 0.21); color: black">2.3</span>
+</td>
+<td style="text-align:left;">
+Dactyle de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CTG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">8917.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">7919</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Châtaigne
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BDP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">7977.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1527</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(118, 144, 218, 0.49); color: black">5.2</span>
+</td>
+<td style="text-align:left;">
+Blé dur de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FLP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">7803.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">7777</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(203, 217, 241, 0.09); color: black">1.0</span>
+</td>
+<td style="text-align:left;">
+Autre légume ou fruit pérenne
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MOT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">7711.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2455</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(161, 180, 230, 0.29); color: black">3.1</span>
+</td>
+<td style="text-align:left;">
+Moutarde
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RVI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">7619.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">9597</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(207, 220, 243, 0.07); color: black">0.8</span>
+</td>
+<td style="text-align:left;">
+Restructuration du vignoble
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TRU
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">6991.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">9238</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(207, 220, 243, 0.07); color: black">0.8</span>
+</td>
+<td style="text-align:left;">
+Truffière (chênaie de plants mycorhizés)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AIL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4456.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2426</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(187, 203, 237, 0.16); color: black">1.8</span>
+</td>
+<td style="text-align:left;">
+Aïl
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4379.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1506</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(165, 184, 231, 0.27); color: black">2.9</span>
+</td>
+<td style="text-align:left;">
+Autre céréale d’hiver de genre Triticum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CMB
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4335.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2300</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(185, 201, 236, 0.17); color: black">1.9</span>
+</td>
+<td style="text-align:left;">
+Courge musquée / Butternut
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VRT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4316.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">6474</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(209, 222, 243, 0.05); color: black">0.7</span>
+</td>
+<td style="text-align:left;">
+Vigne : raisins de table
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CRD
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4189.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1008</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(138, 161, 223, 0.4); color: black">4.2</span>
+</td>
+<td style="text-align:left;">
+Coriandre
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PPP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4186.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3912</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Autre plante à parfum, aromatique et médicinale pérenne
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TCR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4162.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2290</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(187, 203, 237, 0.16); color: black">1.8</span>
+</td>
+<td style="text-align:left;">
+Taillis à courte rotation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LBF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4046.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2722</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(193, 208, 239, 0.13); color: black">1.5</span>
+</td>
+<td style="text-align:left;">
+Laitue / Batavia / Feuille de chêne
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VES
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4016.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1659</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(175, 193, 234, 0.22); color: black">2.4</span>
+</td>
+<td style="text-align:left;">
+Autre vesce
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+POR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">3934.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2417</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(191, 206, 238, 0.15); color: black">1.6</span>
+</td>
+<td style="text-align:left;">
+Poireau
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ART
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">3819.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3409</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Artichaut
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OEI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">3702.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">500</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(73, 106, 205, 0.71); color: red">7.4</span>
+</td>
+<td style="text-align:left;">
+Œillette
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BFS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">3588.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffcfc">24565</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(222, 233, 247, 0); color: black">0.1</span>
+</td>
+<td style="text-align:left;">
+Bande admissible le long d’une forêt sans production
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CAG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">3576.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1001</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(150, 172, 227, 0.34); color: black">3.6</span>
+</td>
+<td style="text-align:left;">
+Autre céréale d’un autre genre
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LDH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">3260.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">741</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(134, 158, 222, 0.42); color: black">4.4</span>
+</td>
+<td style="text-align:left;">
+Lupin doux d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PFR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">3257.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3682</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(205, 219, 242, 0.07); color: black">0.9</span>
+</td>
+<td style="text-align:left;">
+Petit fruit rouge
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TTP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">3117.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1236</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(173, 191, 233, 0.23); color: black">2.5</span>
+</td>
+<td style="text-align:left;">
+Triticale de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MOH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2994.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1535</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(183, 199, 236, 0.18); color: black">2.0</span>
+</td>
+<td style="text-align:left;">
+Moha
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MLS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2960.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">883</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(155, 175, 228, 0.32); color: black">3.4</span>
+</td>
+<td style="text-align:left;">
+Mélange de légumineuses non fourragères prépondérantes et de céréales et/ou d’oléagineux
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CML
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2795.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">618</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(132, 156, 222, 0.42); color: black">4.5</span>
+</td>
+<td style="text-align:left;">
+Cameline
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SGE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2761.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1159</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(175, 193, 234, 0.22); color: black">2.4</span>
+</td>
+<td style="text-align:left;">
+Sauge
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GFP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2682.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1551</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(189, 205, 237, 0.15); color: black">1.7</span>
+</td>
+<td style="text-align:left;">
+Autre graminée fourragère pure de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FSG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2486.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1353</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(187, 203, 237, 0.16); color: black">1.8</span>
+</td>
+<td style="text-align:left;">
+Autre plante fourragère sarclée d’un autre genre
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+POT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2438.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1848</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(197, 212, 240, 0.11); color: black">1.3</span>
+</td>
+<td style="text-align:left;">
+Potiron / Potimarron
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ROS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2371.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">227</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(13, 54, 189, 1); color: red">10.4</span>
+</td>
+<td style="text-align:left;">
+Roselière
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ACP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2329.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1195</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(185, 201, 236, 0.17); color: black">1.9</span>
+</td>
+<td style="text-align:left;">
+Autre culture pérenne
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AGR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2252.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1101</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(183, 199, 236, 0.18); color: black">2.0</span>
+</td>
+<td style="text-align:left;">
+Agrume
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FFO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2238.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">797</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Autre féverole fourragère
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TOT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2174.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">426</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(120, 146, 218, 0.48); color: black">5.1</span>
+</td>
+<td style="text-align:left;">
+Tomate pour transformation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PFH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2125.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">545</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(144, 166, 225, 0.37); color: black">3.9</span>
+</td>
+<td style="text-align:left;">
+Autre pois fourrager d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PFP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2120.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">589</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(150, 172, 227, 0.34); color: black">3.6</span>
+</td>
+<td style="text-align:left;">
+Autre pois fourrager de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FRA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2117.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">3888</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(213, 226, 244, 0.04); color: black">0.5</span>
+</td>
+<td style="text-align:left;">
+Fraise
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CCT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2080.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1498</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(195, 210, 239, 0.13); color: black">1.4</span>
+</td>
+<td style="text-align:left;">
+Courgette / Citrouille
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EPI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1996.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">762</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(171, 189, 232, 0.24); color: black">2.6</span>
+</td>
+<td style="text-align:left;">
+Épinard
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LDP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1944.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">544</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(150, 172, 227, 0.34); color: black">3.6</span>
+</td>
+<td style="text-align:left;">
+Lupin doux de printemps semé avant le 31/05
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAC
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1882.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">897</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(181, 198, 235, 0.19); color: black">2.1</span>
+</td>
+<td style="text-align:left;">
+Mâche
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CZP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1622.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">580</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Colza de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1521.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">484</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(161, 180, 230, 0.29); color: black">3.1</span>
+</td>
+<td style="text-align:left;">
+Mélange de protéagineux (pois et/ou lupin et/ou féverole)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1508.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">507</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(163, 182, 230, 0.28); color: black">3.0</span>
+</td>
+<td style="text-align:left;">
+Persil
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PCL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1235.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1216</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(203, 217, 241, 0.09); color: black">1.0</span>
+</td>
+<td style="text-align:left;">
+Phacélie de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CEL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1188.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">730</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(191, 206, 238, 0.15); color: black">1.6</span>
+</td>
+<td style="text-align:left;">
+Céleri
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TAB
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1171.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">555</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(181, 198, 235, 0.19); color: black">2.1</span>
+</td>
+<td style="text-align:left;">
+Tabac
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RDI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1059.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">745</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(195, 210, 239, 0.13); color: black">1.4</span>
+</td>
+<td style="text-align:left;">
+Radis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+THY
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1055.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1048</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(203, 217, 241, 0.09); color: black">1.0</span>
+</td>
+<td style="text-align:left;">
+Thym
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SGP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1051.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">503</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(181, 198, 235, 0.19); color: black">2.1</span>
+</td>
+<td style="text-align:left;">
+Seigle de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BFP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">1042.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffdfd">11484</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(222, 233, 247, 0); color: black">0.1</span>
+</td>
+<td style="text-align:left;">
+Bande admissible le long d’une forêt avec production
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CBT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">950.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">821</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(199, 213, 240, 0.11); color: black">1.2</span>
+</td>
+<td style="text-align:left;">
+Cerise bigarreau pour transformation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FNU
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">852.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">254</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(155, 175, 228, 0.32); color: black">3.4</span>
+</td>
+<td style="text-align:left;">
+Fenugrec
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TRD
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">827.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">213</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(144, 166, 225, 0.37); color: black">3.9</span>
+</td>
+<td style="text-align:left;">
+Trèfle déshydraté
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SAD
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">796.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">144</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(112, 139, 216, 0.52); color: black">5.5</span>
+</td>
+<td style="text-align:left;">
+Sainfoin déshydraté
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FNO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">773.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">424</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(187, 203, 237, 0.16); color: black">1.8</span>
+</td>
+<td style="text-align:left;">
+Fenouil
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MPA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">746.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">540</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(195, 210, 239, 0.13); color: black">1.4</span>
+</td>
+<td style="text-align:left;">
+Autre mélange de plantes fixant l’azote
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MRS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">745.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">354</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(181, 198, 235, 0.19); color: black">2.1</span>
+</td>
+<td style="text-align:left;">
+Marais salant
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+HBL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">667.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">418</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(191, 206, 238, 0.15); color: black">1.6</span>
+</td>
+<td style="text-align:left;">
+Houblon
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CSE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">648.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">358</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(187, 203, 237, 0.16); color: black">1.8</span>
+</td>
+<td style="text-align:left;">
+Chanvre sans étiquette conforme
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NVT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">644.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">641</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(203, 217, 241, 0.09); color: black">1.0</span>
+</td>
+<td style="text-align:left;">
+Navet
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CSS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">612.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">904</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(209, 222, 243, 0.05); color: black">0.7</span>
+</td>
+<td style="text-align:left;">
+Culture sous serre hors sol
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SFI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">581.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">85</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(86, 116, 209, 0.65); color: black">6.8</span>
+</td>
+<td style="text-align:left;">
+Salsifis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CID
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">549.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">405</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(195, 210, 239, 0.13); color: black">1.4</span>
+</td>
+<td style="text-align:left;">
+Cultures conduites en interrangs&nbsp;: 2 cultures représentant chacune plus de 25%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">534.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">511</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(203, 217, 241, 0.09); color: black">1.0</span>
+</td>
+<td style="text-align:left;">
+Chou fourrager
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PWT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">513.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">448</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Poire Williams pour transformation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LOT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">507.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">183</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Lotier
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PAN
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">474.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">301</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(191, 206, 238, 0.15); color: black">1.6</span>
+</td>
+<td style="text-align:left;">
+Panais
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BRO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">437.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">183</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(175, 193, 234, 0.22); color: black">2.4</span>
+</td>
+<td style="text-align:left;">
+Brome de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MOL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">429.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">108</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(142, 165, 225, 0.38); color: black">4.0</span>
+</td>
+<td style="text-align:left;">
+Mélange d’oléagineux
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MTH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">398.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">419</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(203, 217, 241, 0.09); color: black">1.0</span>
+</td>
+<td style="text-align:left;">
+Menthe
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FEV
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">393.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">215</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(187, 203, 237, 0.16); color: black">1.8</span>
+</td>
+<td style="text-align:left;">
+Fève
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TOM
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">390.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">1094</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(215, 227, 245, 0.03); color: black">0.4</span>
+</td>
+<td style="text-align:left;">
+Tomate
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CGP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">339.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">357</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(203, 217, 241, 0.09); color: black">1.0</span>
+</td>
+<td style="text-align:left;">
+Autre céréale de genre Panicum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PVP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">331.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">524</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(211, 224, 244, 0.05); color: black">0.6</span>
+</td>
+<td style="text-align:left;">
+Poivron / Piment
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CGO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">295.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">180</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(191, 206, 238, 0.15); color: black">1.6</span>
+</td>
+<td style="text-align:left;">
+Autre céréale de genre Sorghum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OAG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">279.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">118</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(175, 193, 234, 0.22); color: black">2.4</span>
+</td>
+<td style="text-align:left;">
+Autre oléagineux d’un autre genre
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+EST
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">271.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">90</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(163, 182, 230, 0.28); color: black">3.0</span>
+</td>
+<td style="text-align:left;">
+Estragon
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+TOP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">248.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">352</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(209, 222, 243, 0.05); color: black">0.7</span>
+</td>
+<td style="text-align:left;">
+Topinambour
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">246.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">57</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(136, 160, 223, 0.4); color: black">4.3</span>
+</td>
+<td style="text-align:left;">
+Chardon Marie
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CMM
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">242.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">163</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(193, 208, 239, 0.13); color: black">1.5</span>
+</td>
+<td style="text-align:left;">
+Camomille
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MLI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">238.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">220</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Mélisse
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+FLO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">226.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">69</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(157, 177, 228, 0.31); color: black">3.3</span>
+</td>
+<td style="text-align:left;">
+Fléole de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CIB
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">225.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">80</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Ciboulette
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RDF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">219.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">148</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(193, 208, 239, 0.13); color: black">1.5</span>
+</td>
+<td style="text-align:left;">
+Radis fourrager
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MRJ
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">213.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">230</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(205, 219, 242, 0.07); color: black">0.9</span>
+</td>
+<td style="text-align:left;">
+Marjolaine / Origan
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LFH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">207.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">76</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(169, 187, 232, 0.25); color: black">2.7</span>
+</td>
+<td style="text-align:left;">
+Autre lupin fourrager d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BAS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">205.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">120</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(189, 205, 237, 0.15); color: black">1.7</span>
+</td>
+<td style="text-align:left;">
+Basilic
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+XFE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">203.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">63</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(159, 179, 229, 0.3); color: black">3.2</span>
+</td>
+<td style="text-align:left;">
+X-Felium de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LFP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">197.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">89</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(179, 196, 235, 0.2); color: black">2.2</span>
+</td>
+<td style="text-align:left;">
+Autre lupin fourrager de printemps
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CCN
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">196.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">313</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(211, 224, 244, 0.05); color: black">0.6</span>
+</td>
+<td style="text-align:left;">
+Concombre / Cornichon
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ROM
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">195.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">299</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(209, 222, 243, 0.05); color: black">0.7</span>
+</td>
+<td style="text-align:left;">
+Romarin
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+LEF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">193.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">69</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Lentille fourragère
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PAS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">191.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">109</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(187, 203, 237, 0.16); color: black">1.8</span>
+</td>
+<td style="text-align:left;">
+Pastèque
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSY
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">178.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">66</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(169, 187, 232, 0.25); color: black">2.7</span>
+</td>
+<td style="text-align:left;">
+Plantain psyllium
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">176.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">70</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(173, 191, 233, 0.23); color: black">2.5</span>
+</td>
+<td style="text-align:left;">
+Aneth
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MLD
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">172.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">50</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(153, 173, 227, 0.33); color: black">3.5</span>
+</td>
+<td style="text-align:left;">
+Mélange de légumineuses déshydratées (entre elles)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CPT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">166.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">71</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(177, 194, 234, 0.21); color: black">2.3</span>
+</td>
+<td style="text-align:left;">
+Autre céréale de printemps de genre Triticum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MEL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">163.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">147</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Autre mélilot
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ROQ
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">161.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">113</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(195, 210, 239, 0.13); color: black">1.4</span>
+</td>
+<td style="text-align:left;">
+Roquette
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">155.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">80</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(185, 201, 236, 0.17); color: black">1.9</span>
+</td>
+<td style="text-align:left;">
+Autre céréale d’hiver de genre Avena
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PVT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">150.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">100</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(193, 208, 239, 0.13); color: black">1.5</span>
+</td>
+<td style="text-align:left;">
+Pêche Pavie pour transformation
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">149.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">59</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(173, 191, 233, 0.23); color: black">2.5</span>
+</td>
+<td style="text-align:left;">
+Angélique
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PIS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">134.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">119</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Pistache
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+GES
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">132.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">66</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(183, 199, 236, 0.18); color: black">2.0</span>
+</td>
+<td style="text-align:left;">
+Gesse
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">129.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">45</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(165, 184, 231, 0.27); color: black">2.9</span>
+</td>
+<td style="text-align:left;">
+Autre céréale d’hiver de genre Hordeum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JNO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">123.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">141</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(205, 219, 242, 0.07); color: black">0.9</span>
+</td>
+<td style="text-align:left;">
+Jachère noire
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SRI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">113.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">171</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(209, 222, 243, 0.05); color: black">0.7</span>
+</td>
+<td style="text-align:left;">
+Sarriette
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CPA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">106.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">61</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(189, 205, 237, 0.15); color: black">1.7</span>
+</td>
+<td style="text-align:left;">
+Autre céréale de printemps de genre Avena
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CIT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">101.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">81</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(199, 213, 240, 0.11); color: black">1.2</span>
+</td>
+<td style="text-align:left;">
+Cultures conduites en interrangs&nbsp;: 3 cultures représentant chacune plus de 25%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSN
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">96.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">24</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(142, 165, 225, 0.38); color: black">4.0</span>
+</td>
+<td style="text-align:left;">
+Psyllium noir de Provence
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AUB
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">94.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">259</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(215, 227, 245, 0.03); color: black">0.4</span>
+</td>
+<td style="text-align:left;">
+Aubergine
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MIN
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">83.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">21</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(142, 165, 225, 0.38); color: black">4.0</span>
+</td>
+<td style="text-align:left;">
+Minette
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CPH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">82.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">21</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(144, 166, 225, 0.37); color: black">3.9</span>
+</td>
+<td style="text-align:left;">
+Autre céréale de printemps de genre Hordeum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BRH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">79.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">34</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(177, 194, 234, 0.21); color: black">2.3</span>
+</td>
+<td style="text-align:left;">
+Bourrache de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ANI
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">79.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">26</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(161, 180, 230, 0.29); color: black">3.1</span>
+</td>
+<td style="text-align:left;">
+Anis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CHS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">73.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">28</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(171, 189, 232, 0.24); color: black">2.6</span>
+</td>
+<td style="text-align:left;">
+Autre céréale d’hiver de genre Secale
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+RUT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">73.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">52</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(195, 210, 239, 0.13); color: black">1.4</span>
+</td>
+<td style="text-align:left;">
+Rutabaga
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PAG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">68.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">41</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(189, 205, 237, 0.15); color: black">1.7</span>
+</td>
+<td style="text-align:left;">
+Autre protéagineux d’un autre genre
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+AVO
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">64.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">56</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(199, 213, 240, 0.11); color: black">1.2</span>
+</td>
+<td style="text-align:left;">
+Avocat
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NVH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">57.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">22</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(171, 189, 232, 0.24); color: black">2.6</span>
+</td>
+<td style="text-align:left;">
+Navette d’hiver
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NVE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">54.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">74</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(209, 222, 243, 0.05); color: black">0.7</span>
+</td>
+<td style="text-align:left;">
+Navette d’été
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CRF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">51.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">45</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Cerfeuil
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BLT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">50.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">66</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(207, 220, 243, 0.07); color: black">0.8</span>
+</td>
+<td style="text-align:left;">
+Bleuet
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CRS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">49.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">47</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Cresson
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CAF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">47.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">12</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(144, 166, 225, 0.37); color: black">3.9</span>
+</td>
+<td style="text-align:left;">
+Carotte fourragère
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ARA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">45.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">19</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(175, 193, 234, 0.22); color: black">2.4</span>
+</td>
+<td style="text-align:left;">
+Arachide
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+VAL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">43.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">28</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(193, 208, 239, 0.13); color: black">1.5</span>
+</td>
+<td style="text-align:left;">
+Valériane
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PAT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">40.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">36</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Pâturin commun de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CGH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">40.5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">16</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(173, 191, 233, 0.23); color: black">2.5</span>
+</td>
+<td style="text-align:left;">
+Autre céréale de genre Phalaris
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MAV
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">36.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">42</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(205, 219, 242, 0.07); color: black">0.9</span>
+</td>
+<td style="text-align:left;">
+Mauve
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CPZ
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">33.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">12</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(167, 186, 231, 0.26); color: black">2.8</span>
+</td>
+<td style="text-align:left;">
+Autre céréale de printemps de genre Zea
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OSE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">31.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">18</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(189, 205, 237, 0.15); color: black">1.7</span>
+</td>
+<td style="text-align:left;">
+Oseille
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ORT
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">27.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">63</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(215, 227, 245, 0.03); color: black">0.4</span>
+</td>
+<td style="text-align:left;">
+Ortie
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OHN
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">24.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(161, 180, 230, 0.29); color: black">3.1</span>
+</td>
+<td style="text-align:left;">
+Autre oléagineux d’hiver d’espèce Brassica napus
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OPN
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">24.8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(153, 173, 227, 0.33); color: black">3.5</span>
+</td>
+<td style="text-align:left;">
+Autre oléagineux de printemps d’espèce Brassica napus
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OHR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">23.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(155, 175, 228, 0.32); color: black">3.4</span>
+</td>
+<td style="text-align:left;">
+Autre oléagineux d’hiver d’espèce Brassica rapa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OEH
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">22.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">14</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(191, 206, 238, 0.15); color: black">1.6</span>
+</td>
+<td style="text-align:left;">
+Autre oléagineux d’espèce Helianthus
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PMV
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">19.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(146, 168, 226, 0.36); color: black">3.8</span>
+</td>
+<td style="text-align:left;">
+Primevère
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CGF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">17.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">17</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(203, 217, 241, 0.09); color: black">1.0</span>
+</td>
+<td style="text-align:left;">
+Autre céréale de genre Fagopyrum
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NYG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">16.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(183, 199, 236, 0.18); color: black">2.0</span>
+</td>
+<td style="text-align:left;">
+Nyger
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+NVF
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">15.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">41</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(215, 227, 245, 0.03); color: black">0.4</span>
+</td>
+<td style="text-align:left;">
+Navet fourrager
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MRG
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">14.6</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">13</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(201, 215, 241, 0.09); color: black">1.1</span>
+</td>
+<td style="text-align:left;">
+Marguerite
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MLP
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">13.3</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">26</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(213, 226, 244, 0.04); color: black">0.5</span>
+</td>
+<td style="text-align:left;">
+Millepertuis
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+JOS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">12.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(195, 210, 239, 0.13); color: black">1.4</span>
+</td>
+<td style="text-align:left;">
+Autre jarosse
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CPS
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">12.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(197, 212, 240, 0.11); color: black">1.3</span>
+</td>
+<td style="text-align:left;">
+Autre céréale de printemps de genre Secale
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+OPR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">10.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(181, 198, 235, 0.19); color: black">2.1</span>
+</td>
+<td style="text-align:left;">
+Autre oléagineux de printemps d’espèce Brassica rapa
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+BAR
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">8.9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">15</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(211, 224, 244, 0.05); color: black">0.6</span>
+</td>
+<td style="text-align:left;">
+Bardane
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CRA
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">6.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(159, 179, 229, 0.3); color: black">3.2</span>
+</td>
+<td style="text-align:left;">
+Cresson alénois de 5 ans ou moins
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CAV
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">6.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">11</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(211, 224, 244, 0.05); color: black">0.6</span>
+</td>
+<td style="text-align:left;">
+Carvi
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+MED
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">5.1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">1</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(120, 146, 218, 0.48); color: black">5.1</span>
+</td>
+<td style="text-align:left;">
+Mélilot déshydraté
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CUM
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(207, 220, 243, 0.07); color: black">0.8</span>
+</td>
+<td style="text-align:left;">
+Cumin
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PAQ
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">4.0</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">9</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(215, 227, 245, 0.03); color: black">0.4</span>
+</td>
+<td style="text-align:left;">
+Pâquerette
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+CAB
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">3.7</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">16</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(219, 231, 246, 0.01); color: black">0.2</span>
+</td>
+<td style="text-align:left;">
+Caroube
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+PSE
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fefffe">2.4</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">8</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(217, 229, 245, 0.02); color: black">0.3</span>
+</td>
+<td style="text-align:left;">
+Pensée
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+DOL
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #ffffff">2.2</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; border-radius: 4px; background-color: #fffefe">5</span>
+</td>
+<td style="text-align:right;">
+<span style="display: block; padding: 0 4px; font-weight: bold; font-size: 15px; border-radius: 4px; background-color: rgba(215, 227, 245, 0.03); color: black">0.4</span>
+</td>
+<td style="text-align:left;">
+Dolique
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<section id="des-exemples-de-répartition-géographique" class="level3" data-number="1.3.1"><h3 data-number="1.3.1" class="anchored" data-anchor-id="des-exemples-de-répartition-géographique">
+<span class="header-section-number">1.3.1</span> Des exemples de répartition géographique</h3>
+<div id="fig-cultures" class="quarto-layout-panel">
+<figure class="figure"><div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-surus" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/rpg_PPH.png" class="img-fluid figure-img" data-ref-parent="fig-cultures"></p>
+<figcaption class="figure-caption">(a) Prairie permanente</figcaption></figure>
+</div>
+</div>
+</div>
+<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-cell quarto-layout-cell-subref" style="flex-basis: 100.0%;justify-content: center;">
+<div id="fig-hanno" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure"><p><img src="images/rpg_BTH.png" class="img-fluid figure-img" data-ref-parent="fig-cultures"></p>
+<figcaption class="figure-caption">(b) Blé tendre d’hiver</figcaption></figure>
+</div>
+</div>
+</div>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1.1: Exemple de cultures</figcaption><p></p>
+</figure>
+</div>
+
+
+</section></section></main><!-- /main --><script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const disableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'prefetch';
+    }
+  }
+  const enableStylesheet = (stylesheets) => {
+    for (let i=0; i < stylesheets.length; i++) {
+      const stylesheet = stylesheets[i];
+      stylesheet.rel = 'stylesheet';
+    }
+  }
+  const manageTransitions = (selector, allowTransitions) => {
+    const els = window.document.querySelectorAll(selector);
+    for (let i=0; i < els.length; i++) {
+      const el = els[i];
+      if (allowTransitions) {
+        el.classList.remove('notransition');
+      } else {
+        el.classList.add('notransition');
+      }
+    }
+  }
+  const toggleColorMode = (alternate) => {
+    // Switch the stylesheets
+    const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+    manageTransitions('#quarto-margin-sidebar .nav-link', false);
+    if (alternate) {
+      enableStylesheet(alternateStylesheets);
+      for (const sheetNode of alternateStylesheets) {
+        if (sheetNode.id === "quarto-bootstrap") {
+          toggleBodyColorMode(sheetNode);
+        }
+      }
+    } else {
+      disableStylesheet(alternateStylesheets);
+      toggleBodyColorPrimary();
+    }
+    manageTransitions('#quarto-margin-sidebar .nav-link', true);
+    // Switch the toggles
+    const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+    for (let i=0; i < toggles.length; i++) {
+      const toggle = toggles[i];
+      if (toggle) {
+        if (alternate) {
+          toggle.classList.add("alternate");     
+        } else {
+          toggle.classList.remove("alternate");
+        }
+      }
+    }
+    // Hack to workaround the fact that safari doesn't
+    // properly recolor the scrollbar when toggling (#1455)
+    if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+      manageTransitions("body", false);
+      window.scrollTo(0, 1);
+      setTimeout(() => {
+        window.scrollTo(0, 0);
+        manageTransitions("body", true);
+      }, 40);  
+    }
+  }
+  const isFileUrl = () => { 
+    return window.location.protocol === 'file:';
+  }
+  const hasAlternateSentinel = () => {  
+    let styleSentinel = getColorSchemeSentinel();
+    if (styleSentinel !== null) {
+      return styleSentinel === "alternate";
+    } else {
+      return false;
+    }
+  }
+  const setStyleSentinel = (alternate) => {
+    const value = alternate ? "alternate" : "default";
+    if (!isFileUrl()) {
+      window.localStorage.setItem("quarto-color-scheme", value);
+    } else {
+      localAlternateSentinel = value;
+    }
+  }
+  const getColorSchemeSentinel = () => {
+    if (!isFileUrl()) {
+      const storageValue = window.localStorage.getItem("quarto-color-scheme");
+      return storageValue != null ? storageValue : localAlternateSentinel;
+    } else {
+      return localAlternateSentinel;
+    }
+  }
+  let localAlternateSentinel = 'default';
+  // Dark / light mode switch
+  window.quartoToggleColorScheme = () => {
+    // Read the current dark / light value 
+    let toAlternate = !hasAlternateSentinel();
+    toggleColorMode(toAlternate);
+    setStyleSentinel(toAlternate);
+  };
+  // Ensure there is a toggle, if there isn't float one in the top right
+  if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+    const a = window.document.createElement('a');
+    a.classList.add('top-right');
+    a.classList.add('quarto-color-scheme-toggle');
+    a.href = "";
+    a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+    const i = window.document.createElement("i");
+    i.classList.add('bi');
+    a.appendChild(i);
+    window.document.body.appendChild(a);
+  }
+  // Switch to dark mode if need be
+  if (hasAlternateSentinel()) {
+    toggleColorMode(true);
+  } else {
+    toggleColorMode(false);
+  }
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script><nav class="page-navigation"><div class="nav-page nav-page-previous">
+      <a href="./intro.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Intro</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+</body></html>

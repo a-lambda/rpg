@@ -1,0 +1,40 @@
+project:
+  type: book
+  output-dir: docs
+  
+book: 
+  reader-mode: true
+  page-navigation: true
+  title: "Registre parcellaire graphique (RPG)"
+  subtitle: "Essai"
+  author: 
+    - name: "Alain CORVISIER"
+      email: alain.corvisier@proton.me
+  sidebar:
+    style: floating
+  repo-url: https://github.com/a-lambda/rpg
+  repo-actions: [edit]
+  search: true
+  chapters:
+    - index.qmd
+    - intro.qmd
+    - href: rpg_2022.qmd
+      text: Données RPG 2022
+    
+bibliography: references.bib
+  
+format:
+  html:
+    cover-image: images/cover.png
+    theme: 
+      light:
+        - cosmo
+        - css/fira-code.css
+        - css/light.css
+      dark:
+        - slate
+        - css/dark.css
+    code-link: true
+    toc: true
+    monofont: Fira Code
+    number-depth: 3
