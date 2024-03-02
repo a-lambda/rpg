@@ -80,6 +80,18 @@ new_vec <- function(vecteur, nrow, ncol) {
 
 Le fichier de données accessible [ici](https://www.data.gouv.fr/fr/datasets/registre-parcellaire-graphique-rpg-contours-des-parcelles-et-ilots-culturaux-et-leur-groupe-de-cultures-majoritaire/) contient les contours des parcellaires et îlots culturaux et leur groupe de cultures majoritaires.
 
+
+```{r}
+#| label: charge_ref_nomenclature
+#| echo: false
+
+# je charge la nomenclature de référence
+file_ref <- "DATA/REFERENCES/REF_CULTURES_GROUPES_CULTURES_2021.csv"
+data_ref = fread(file_ref)
+
+```
+
+
 ## Informations sur le Geopackage contenant les données métropolitaines
 
 ```{r}
@@ -134,15 +146,69 @@ display_vecteur_table(code_cultu_gpkg, ncol = 15, byrow = TRUE)
 
 ```
 
+
+```{r}
+#| label: comptage_surface_par_code_culture
+#| echo: false
+#| message: false
+#| warning: false
+#| output: false
+
+tic(msg = "comptage codes cultures")
+surfaces_par_culture <- st_read(
+  gpkg_file,
+  query = "SELECT code_cultu AS `CODE CULTURE`, ROUND(SUM(surf_parc),1) AS `TOTAL (ha)`, COUNT(code_cultu) AS N, ROUND(SUM(surf_parc)/COUNT(code_cultu), 1) AS `MOYENNE (ha)` FROM parcelles_graphiques GROUP BY code_cultu ORDER BY code_cultu;",
+  as_tibble = TRUE
+)
+toc()
+
+data_surfaces <- inner_join(surfaces_par_culture, data_ref, join_by(`CODE CULTURE` == CODE_CULTURE)) |> 
+  select(-c(CODE_GROUPE_CULTURE, LIBELLE_GROUPE_CULTURE)) |> 
+  rename(c(`LIBELLE CULTURE` = "LIBELLE_CULTURE"))
+
+
+```
+
+
+```{r}
+#| label: display_surfaces_par_culture
+#| echo: false
+#| message: false
+
+
+customBlue0 = "#DEE9F700"
+customBlue1 = "#0D36BD"
+
+custom_format <- formatter(
+  .tag = "span", 
+  style = function(x) style(
+    display = "block", 
+    padding = "0 4px",
+    `font-weight` = "bold",
+    `font-size` = "15px",
+    `border-radius` = "4px", 
+    `background-color` = csscolor(gradient(as.numeric(x), customBlue0, customBlue1)),
+    color = ifelse(x >= 7, "red","black")
+    )
+  )
+
+data_surfaces |> 
+  formattable(
+    align = c("l", "r", "r", "r"),
+    list(
+      "TOTAL (ha)" = color_tile("transparent", "red"),
+      "N" = color_tile("transparent", "green"),
+      "MOYENNE (ha)" = custom_format
+    )
+  )
+
+```
+
 ### 2. Tableau des des données (non géographiques) du Geopackage
 
 ```{r}
 #| label: cultures_in_gpkg
 #| echo: false
-
-# je charge la nomenclature de référence
-file_ref <- "DATA/REFERENCES/REF_CULTURES_GROUPES_CULTURES_2021.csv"
-data_ref = fread(file_ref)
 
 gpkg_cultures <- data_ref |> 
   filter(CODE_CULTURE %in% code_cultu_gpkg) |> 
@@ -198,15 +264,23 @@ code_cultu_gpkg |>
 
 
 ```{r}
+#| label: recup_contours_departements_français
+#| echo: false
+#| message: false
+
+contours_geo <- st_geometry(st_read("DATA/OSM/departements-20180101.shp"))
+contour_geo_2154 <- st_transform(contours_geo, crs = st_crs("EPSG:2154"))
+# st_bbox(c(xmin = 80000, xmax = 1242000, ymin = 6051000, ymin = 7109000), crs = st_crs("EPSG:2154"))
+
+```
+
+
+```{r}
 #| label: plot_gpkg_culture
 #| echo: false
 #| message: false
 #| warning: false
 #| output: false
-
-contours_geo <- st_geometry(st_read("DATA/OSM/departements-20180101.shp"))
-contour_geo_2154 <- st_transform(contours_geo, crs = st_crs("EPSG:2154"))
-# st_bbox(c(xmin = 80000, xmax = 1242000, ymin = 6051000, ymin = 7109000), crs = st_crs("EPSG:2154"))
 
 plot_culture <- function(code_cultu) {
   
@@ -223,8 +297,8 @@ plot_culture <- function(code_cultu) {
     tic(msg = glue("lecture RDS et plot pour le code culture : {code_cultu}"))
     data <- readRDS(rds_file) 
     p <- ggplot() +
-      geom_sf(data = contour_geo_2154, colour = "blue", linewidth = 0.1, fill = "transparent") +
-      geom_sf(data = data, colour = NA, fill = "yellow") +
+      geom_sf(data = contour_geo_2154, colour = "black", linewidth = 0.05, fill = "transparent") +
+      geom_sf(data = data, colour = "red", linewidth = 0.05, fill = "red") +
       coord_sf(
         xlim = c(80000, 1242000),
         ylim = c(6051000, 7109000),
@@ -233,11 +307,11 @@ plot_culture <- function(code_cultu) {
       theme(
         panel.background = element_rect(fill = 'transparent', color = NA), #transparent panel bg
         plot.background = element_rect(fill = 'transparent', color = NA), #transparent plot bg
-        panel.grid.major = element_line(linewidth = 0.1, color = "white"),
+        panel.grid.major = element_line(linewidth = 0.1, color = "black", linetype = "dashed"),
         # panel.grid.minor = element_blank(), #remove minor gridlines
         # legend.background = element_rect(fill = 'transparent'), #transparent legend bg
         # legend.box.background = element_rect(fill = 'transparent') #transparent legend panel
-        title = element_text(color = "red")
+        title = element_text(color = "black")
       ) +
       labs(
         title = glue("code culture : {code_cultu}"),
@@ -245,8 +319,7 @@ plot_culture <- function(code_cultu) {
                           filter(CODE_CULTURE == {{ code_cultu }}) |> 
                           pull(LIBELLE_CULTURE))
       )
-    ggsave(png_file, p, bg = 'transparent', width = 20, height = 20, units = "cm", dpi = 320)
-    #ggsave(svg_file, p, bg = 'black')
+    ggsave(png_file, p, bg = "white", width = 30, height = 30, units = "cm")
     toc()
   } else {
     message(
@@ -255,8 +328,8 @@ plot_culture <- function(code_cultu) {
   }
 }
 
-code_cultu_gpkg[181:181] |> 
-  walk(plot_culture)
+#code_cultu_gpkg[181:181] |> 
+ # walk(plot_culture)
 
 ```
 
