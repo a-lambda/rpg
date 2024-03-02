@@ -27,21 +27,22 @@ library(glue)
 #| echo: false
 #| message: false
 
-display_vecteur_table <- function(vecteur, n_col, byrow = TRUE) {
-  n_col = n_col
+display_vecteur_table <- function(vecteur, ncol, byrow = TRUE) {
+  ncol = ncol
   len_vec <- length(vecteur)
-  n_row <- len_vec %/% n_col + 1
-  vec_chunks <- base::split(vecteur, ceiling(seq_along(vecteur) / n_row))
-  # same length for last chunk as the others and replace NA with ""
-  last_chunk <- vec_chunks[[n_col]]
-  length(last_chunk) <- n_row
-  last_chunk <- replace(last_chunk, is.na(last_chunk), "")
-  vec_chunks[[n_col]] <- last_chunk
+  nrow <- len_vec %/% ncol + 1
+  if (byrow) {
+    vecteur <- new_vec(vecteur, nrow, ncol)
+  } else {
+    vecteur <- vecteur[1:(nrow * ncol)]
+  }
+  vecteur <- replace(vecteur, is.na(vecteur), "")
+  vec_chunks <- base::split(vecteur, ceiling(seq_along(vecteur) / nrow))
   df <- bind_cols(vec_chunks)
   # generate <1st value>-<last value> column headers
   nchar_max <- nchar(len_vec)
-  start_indices <- seq(1, len_vec, by = n_row)
-  end_indices <- c(seq(n_row, len_vec, by = n_row), len_vec)
+  start_indices <- seq(1, len_vec, by = nrow)
+  end_indices <- c(seq(nrow, len_vec, by = nrow), len_vec)
   # str_pad is used to get same column width displayed
   col_headers <- paste(
     str_pad(start_indices, width = nchar_max, pad = "0", side = "left"),
@@ -53,7 +54,7 @@ display_vecteur_table <- function(vecteur, n_col, byrow = TRUE) {
   df |> formattable(
     align = "l",
     list(
-      area(col = 1:n_col) ~ formatter(
+      area(col = 1:ncol) ~ formatter(
         "span", style = x ~ style(
           "font-weight" = "100",
           "font-family" = "Helvetica",
@@ -62,6 +63,15 @@ display_vecteur_table <- function(vecteur, n_col, byrow = TRUE) {
       )
     )
   )
+}
+
+# reindex vecteur to arrange columns into rows
+new_vec <- function(vecteur, nrow, ncol) {
+  new_ind <- double(0)
+  for (i in 1:ncol) {
+    new_ind <- c(new_ind, seq(i, ncol * nrow, by = ncol))
+  }
+  vecteur[new_ind]
 }
 
 ```
@@ -112,7 +122,15 @@ toc()
 
 # comptage codes cultures: 28.56 sec elapsed
 
-display_vecteur_table(code_cultu_gpkg, n_col = 15, byrow = TRUE)
+```
+
+
+```{r}
+#| label: display_codes_culture
+#| echo: false
+#| message: false
+
+display_vecteur_table(code_cultu_gpkg, ncol = 15, byrow = TRUE)
 
 ```
 
