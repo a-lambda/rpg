@@ -174,15 +174,24 @@ display_vecteur_table(code_cultu_gpkg, ncol = 15, byrow = TRUE)
 tic(msg = "comptage codes cultures")
 surfaces_par_culture <- st_read(
   gpkg_file,
-  query = "SELECT code_cultu AS `CODE CULTURE`, ROUND(SUM(surf_parc),1) AS `TOTAL (ha)`, COUNT(code_cultu) AS N, ROUND(SUM(surf_parc)/COUNT(code_cultu), 1) AS `MOYENNE (ha)` FROM parcelles_graphiques GROUP BY code_cultu ORDER BY `TOTAL (ha)` DESC;",
+  query = "SELECT code_cultu AS `CODE_CULTURE`, ROUND(SUM(surf_parc),1) AS `SURFACE_TOTALE`, COUNT(code_cultu) AS N, ROUND(SUM(surf_parc)/COUNT(code_cultu), 1) AS `SURFACE_MOYENNE` FROM parcelles_graphiques GROUP BY code_cultu ORDER BY `SURFACE_TOTALE` DESC;",
   as_tibble = TRUE
 )
 toc()
 
-data_surfaces <- inner_join(surfaces_par_culture, data_ref, join_by(`CODE CULTURE` == CODE_CULTURE)) |> 
-  select(-c(CODE_GROUPE_CULTURE, LIBELLE_GROUPE_CULTURE)) |> 
-  rename(c(`LIBELLE CULTURE` = "LIBELLE_CULTURE"))
+data_surfaces <- inner_join(surfaces_par_culture, data_ref, join_by(`CODE_CULTURE` == CODE_CULTURE)) |> 
+  select(-c(CODE_GROUPE_CULTURE, LIBELLE_GROUPE_CULTURE)) 
 
+saveRDS(data_surfaces, "DATA_SURFACES.RDS")
+
+data_surfaces_display <- data_surfaces |>
+  rename(c(
+    `CODE CULTURE` = "CODE_CULTURE",
+    `TOTAL (ha)` = "SURFACE_TOTALE",
+    `MOYENNE (ha)` = "SURFACE_MOYENNE",
+    `LIBELLE CULTURE` = "LIBELLE_CULTURE",
+    )
+  )
 
 ```
 
@@ -210,7 +219,7 @@ custom_format <- formatter(
     )
   )
 
-data_surfaces |> 
+data_surfaces_display |> 
   formattable(
     align = c("l", "r", "r", "r"),
     list(
@@ -312,10 +321,10 @@ plot_culture <- function(code_cultu) {
     "DATA", "RDS", paste0("rpg_",code_cultu,".RDS"), sep = "/"
   )
   png_file <- paste(
-    "images", paste0("rpg_",code_cultu,".png"), sep = "/"
+    "DATA", "images", paste0("rpg_",code_cultu,".png"), sep = "/"
   )
   svg_file <- paste(
-    "images", paste0("rpg_",code_cultu,".svg"), sep = "/"
+    "DATA", "images", paste0("rpg_",code_cultu,".svg"), sep = "/"
   )
   if ((file.exists(rds_file))) {
     tic(msg = glue("lecture RDS et plot pour le code culture : {code_cultu}"))
