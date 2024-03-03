@@ -330,8 +330,8 @@ plot_culture <- function(code_cultu) {
     tic(msg = glue("lecture RDS et plot pour le code culture : {code_cultu}"))
     data <- readRDS(rds_file) 
     p <- ggplot() +
-      geom_sf(data = contour_geo_2154, colour = "black", linewidth = 0.05, fill = "transparent") +
       geom_sf(data = data, colour = "red", linewidth = 0.05, fill = "red") +
+      geom_sf(data = contour_geo_2154, colour = "black", linewidth = 0.05, fill = "transparent") +
       coord_sf(
         xlim = c(80000, 1242000),
         ylim = c(6051000, 7109000),
@@ -362,10 +362,7 @@ plot_culture <- function(code_cultu) {
 }
 
 # code_cultu_gpkg |> 
-#    walk(plot_culture)
-# 
-# plot_culture('BTH')
-
+#   walk(plot_culture)
 
 ```
 

@@ -20,7 +20,9 @@ book:
     - intro.qmd
     - href: rpg_2022.qmd
       text: Données RPG 2022
-    
+    - href: rpg_leaflet.qmd
+      text: Données RPG commune aléatoire
+      
 bibliography: references.bib
   
 format:
