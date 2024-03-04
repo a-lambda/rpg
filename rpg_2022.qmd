@@ -205,6 +205,7 @@ data_surfaces_display <- data_surfaces |>
 
 customBlue0 = "#DEE9F700"
 customBlue1 = "#0D36BD"
+customYellow = "#EEEE30"
 
 custom_format <- formatter(
   .tag = "span", 

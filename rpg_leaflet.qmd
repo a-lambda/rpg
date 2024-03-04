@@ -94,3 +94,4 @@ leaflet(inter_wgs84) |>
   leaflet::addLegend(pal = pal, values = ~ CODE_CULTU, opacity = 0.5)
 
 ```
+
