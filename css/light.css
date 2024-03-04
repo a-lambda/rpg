@@ -4,9 +4,9 @@
 
 /*--
 $link-color: #248CFC;
---*/
-$secondary: #F3DFA2;
 
+$secondary: #F3DFA2;
+--*/
 /*-- Define Bootstrap color variables --*/
 
 /*-- 
@@ -14,8 +14,7 @@ $secondary: #F3DFA2;
 $code-bg: "gray";
 --*/
 // Background color of chunk code
-$code-block-fg: #000000;
-$code-block-bg: #04040408;
+$code-block-bg: #AA000004;
 
 
 /*-- scss:rules --*/

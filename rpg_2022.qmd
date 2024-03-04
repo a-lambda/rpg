@@ -94,7 +94,7 @@ data_ref = fread(file_ref)
 
 gpkg_file <- "DATA/RPG_2-0__GPKG_LAMB93_FXX_2022-01-01/PARCELLES_GRAPHIQUES.gpkg"
 
-layers <- st_layers(gpkg_file)
+layers <- sf::st_layers(gpkg_file)
 
 df <- data.frame(
   name = layers$name,
@@ -116,7 +116,7 @@ df  |> formattable(align = c("l", "l", "r", "r", "l"))
 #| message: false
 #| output: false
 
-header_gpkg <- st_read(
+header_gpkg <- sf::st_read(
   gpkg_file, 
   query = "select * from parcelles_graphiques limit 5;",
   as_tibble = TRUE
@@ -143,7 +143,7 @@ header_gpkg |>
 #| warning: false
 #| output: false
 
-code_cultu_gpkg <- st_read(
+code_cultu_gpkg <- sf::st_read(
   gpkg_file, 
   query = "select distinct code_cultu from parcelles_graphiques order by code_cultu;",
   as_tibble = TRUE

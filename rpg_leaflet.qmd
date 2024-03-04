@@ -30,8 +30,8 @@ library(data.table)
 
 # je charge la nomenclature de référence
 file_ref <- "DATA/REFERENCES/REF_CULTURES_GROUPES_CULTURES_2021.csv"
-data_ref_culture = fread(file_ref) |> 
-  select(CODE_CULTURE, LIBELLE_CULTURE)
+data_ref_culture = data.table::fread(file_ref) |> 
+  dplyr::select(CODE_CULTURE, LIBELLE_CULTURE)
 
 ```
 
@@ -42,7 +42,7 @@ data_ref_culture = fread(file_ref) |>
 
 limites_communales <- readRDS("DATA/OSM/sf_2022_limites_communes.RDS")
 limites_communales_HDF <- limites_communales |> 
-  filter(substr(insee, 1, 2) %in% c("02", "59", "60", "62", "80"))
+  dplyr::filter(substr(insee, 1, 2) %in% c("02", "59", "60", "62", "80"))
 codes_insee <- limites_communales_HDF$insee 
 
 ```
@@ -55,10 +55,10 @@ codes_insee <- limites_communales_HDF$insee
 #| message: false
 #| warning: false
 
-data_rpg_geo_HDF <- st_read("DATA/RPG_2-0__SHP_LAMB93_R32_2022-01-01/PARCELLES_GRAPHIQUES.shp")
+data_rpg_geo_HDF <- sf::st_read("DATA/RPG_2-0__SHP_LAMB93_R32_2022-01-01/PARCELLES_GRAPHIQUES.shp")
 data_rpg_geo_HDF_code_cultu <- data_rpg_geo_HDF |> 
-  select(CODE_CULTU) |> 
-  left_join(data_ref_culture, by = join_by(CODE_CULTU == CODE_CULTURE))
+  dplyr::select(CODE_CULTU) |> 
+  dplyr::left_join(data_ref_culture, by = dplyr::join_by(CODE_CULTU == CODE_CULTURE))
 # crs <- st_crs(data_rpg_geo_HDF_code_cultu) 
 
 ```
@@ -74,23 +74,23 @@ commune <- limites_communales |>
   dplyr::filter(insee == code_insee)
 nom_commune <- commune$nom
 commune_geo <- sf::st_geometry(commune)
-zone_lambert <- st_transform(commune_geo, crs = "EPSG:2154")
-inter_2154 <- st_intersection(data_rpg_geo_HDF_code_cultu, zone_lambert)
-inter_wgs84 <- st_transform(inter_2154, crs = "EPSG:4326")
+zone_lambert <- sf::st_transform(commune_geo, crs = "EPSG:2154")
+inter_2154 <- sf::st_intersection(data_rpg_geo_HDF_code_cultu, zone_lambert)
+inter_wgs84 <- sf::st_transform(inter_2154, crs = "EPSG:4326")
 
 ggplot() + 
-  geom_sf(data = inter_wgs84, aes(fill = CODE_CULTU)) +
-  labs(
+  ggplot2::geom_sf(data = inter_wgs84, aes(fill = CODE_CULTU)) +
+  ggplot2::labs(
     title = paste("Commune :", nom_commune)
   )
 
 pal <- colorFactor(palette = "YlOrRd", domain = inter_wgs84$CODE_CULTU)
 leaflet(inter_wgs84) |> 
-  addTiles() |> 
-  addPolygons(color = NA, 
+  leaflet::addTiles() |> 
+  leaflet::addPolygons(color = NA, 
               fillColor = ~ pal(CODE_CULTU), 
               fillOpacity = 0.5,
               popup = ~paste(LIBELLE_CULTURE, CODE_CULTU)) |> 
-  addLegend(pal = pal, values = ~ CODE_CULTU, opacity = 0.5)
+  leaflet::addLegend(pal = pal, values = ~ CODE_CULTU, opacity = 0.5)
 
 ```
