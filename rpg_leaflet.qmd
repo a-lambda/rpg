@@ -35,7 +35,7 @@ data_ref_culture = data.table::fread(file_ref) |>
 
 ```
 
-### Récupération des limites communales d'OpenStreetMap en date du 1er janvier 2022 
+### Récupération des limites communales d'OpenStreetMap au 1er janvier 2022 
 
 ```{r}
 #| label: limites_communales_HDF
@@ -82,6 +82,15 @@ ggplot() +
   ggplot2::geom_sf(data = inter_wgs84, aes(fill = CODE_CULTU)) +
   ggplot2::labs(
     title = paste("Commune :", nom_commune)
+  ) +
+  ggplot2::coord_sf(expand = TRUE) +
+  theme(
+    panel.background = element_rect(fill = "transparent", color = NA),
+    plot.background = element_rect(fill = "transparent", color = NA),
+    panel.grid.major = element_line(linewidth = 0.1, color = "black", linetype = "dashed"),
+    # legend.background = element_rect(fill = 'transparent'), #transparent legend bg
+    # legend.box.background = element_rect(fill = 'transparent') #transparent legend panel
+    title = element_text(color = "black")
   )
 
 pal <- colorFactor(palette = "YlOrRd", domain = inter_wgs84$CODE_CULTU)

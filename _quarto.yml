@@ -11,8 +11,8 @@ book:
     - name: "Alain CORVISIER"
       email: alain.corvisier@proton.me
   sidebar:
-    style: docked
-    background: "#A804FF20"
+    style: floating
+    background: "#FFFFFF" # "#A804FF15"
     foreground: "#000000"
 
   site-url: https://www.chapelier-fou.fr/rpg/
@@ -22,7 +22,6 @@ book:
   search: true
   chapters:
     - index.qmd
-    - intro.qmd
     - href: rpg_2022.qmd
       text: Données RPG 2022
     - href: rpg_leaflet.qmd
@@ -32,6 +31,12 @@ bibliography: references.bib
   
 format:
   html:
+    grid:
+      sidebar-width: 250px
+      body-width: 1000px
+      margin-width: 250px
+      gutter-width: 1.5rem
+    page-layout: full
     lang: "fr"
     cover-image: images/cover.png
     theme: 
@@ -43,16 +48,16 @@ format:
         - slate
     code-overflow: wrap
     code-link: true
-    code-block-bg: "#FFFF2010"         # inactive if css $code-block-bg defined
-    code-block-border-left: "#40CAF9"  # "#31BAE9"
+    code-block-bg: "#FCFC2009" # "#FFFF2010" inactive if css $code-block-bg defined
+    code-block-border-left: "#40CAFF99"  # "#31BAE9"
     code-tools: 
       source: true
       toggle: false # A quoi sert cette option ?
       caption: none
     toc: true
-    mainfont: Consolas
+    mainfont: Century Gothic
     monofont: Fira Code
-    fontsize: 0.9em
+    fontsize: 0.95em
     number-depth: 3
   pdf:
     documentclass: scrreport
