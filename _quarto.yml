@@ -58,7 +58,7 @@ format:
     toc: true
     mainfont: Gabarito
     monofont: Fira Code
-    fontsize: 0.95em
+    fontsize: 1em
     number-depth: 3
   pdf:
     documentclass: scrreport
