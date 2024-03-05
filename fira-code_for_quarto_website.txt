@@ -1,0 +1,9 @@
+https://youtu.be/vaPBOqfus7w
+
+install.packages("gfonts")
+gfonts::setup_font('fira-code', output_dir = "fira_font")
+
+add /*-- scss:defaults --*/ at the beginning of css generated file
+replace all ../ path location with nothing
+delete lines referred to IE6-IE8 with fonts names terminating with ?#iefix
+delete all #\1 suffixes for svg files

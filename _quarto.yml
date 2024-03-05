@@ -42,6 +42,7 @@ format:
     theme: 
       light:
         - cosmo
+        - css/gabarito.css
         - css/fira-code.css
         - css/light.css
       dark:
@@ -55,7 +56,7 @@ format:
       toggle: false # A quoi sert cette option ?
       caption: none
     toc: true
-    mainfont: Century Gothic
+    mainfont: Gabarito
     monofont: Fira Code
     fontsize: 0.95em
     number-depth: 3
