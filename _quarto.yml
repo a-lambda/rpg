@@ -42,6 +42,7 @@ format:
     theme: 
       light:
         - cosmo
+        - css/open-sans.css
         - css/gabarito.css
         - css/fira-code.css
         - css/light.css
@@ -56,7 +57,7 @@ format:
       toggle: false # A quoi sert cette option ?
       caption: none
     toc: true
-    mainfont: Gabarito
+    mainfont: Open Sans
     monofont: Fira Code
     # fontsize: 1em # dégrade la qualité de la police du code
     number-depth: 3
