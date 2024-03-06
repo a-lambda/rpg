@@ -58,7 +58,7 @@ format:
     toc: true
     mainfont: Gabarito
     monofont: Fira Code
-    fontsize: 1em
+    # fontsize: 1em # dégrade la qualité de la police du code
     number-depth: 3
   pdf:
     documentclass: scrreport
