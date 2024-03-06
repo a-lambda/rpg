@@ -50,8 +50,8 @@ format:
         - slate
     code-overflow: wrap
     code-link: true
-    code-block-bg: "#C0C0E018" # "#FFFF2010" inactive if css $code-block-bg defined
-    code-block-border-left: "#40CAFF60"  # "#31BAE9"
+    code-block-bg: "#C0C0E020" # "#FFFF2010" inactive if css $code-block-bg defined
+    code-block-border-left: none # "#40CAFF60"  # "#31BAE9"
     code-tools: 
       source: true
       toggle: false # A quoi sert cette option ?
