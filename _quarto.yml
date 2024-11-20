@@ -1,8 +1,5 @@
 project:
   type: book
-  output-dir: docs
-execute: 
-  freeze: auto
 
 book:
   #reader-mode: true
